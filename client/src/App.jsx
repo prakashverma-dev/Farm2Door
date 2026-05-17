@@ -9,6 +9,7 @@ import { AppContext } from './context/AppContext'
 import MyOrder from './pages/MyOrder'
 import LoginSignup from './components/LoginSignup'
 import ProductCategory from './pages/productCategory'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
          <Route path='/productcategory/:categoryname' element={<ProductCategory />}  />
       </Routes>
       </div>
+      {isSellerPath ? null : <Footer/>}
    </div>
   )
 }
