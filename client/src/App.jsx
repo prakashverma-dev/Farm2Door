@@ -8,6 +8,7 @@ import NavBar from './components/NavBar'
 import { AppContext } from './context/AppContext'
 import MyOrder from './pages/MyOrder'
 import LoginSignup from './components/LoginSignup'
+import ProductCategory from './pages/productCategory'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/productdetail/:id' element={<ProductDetails/>}  />
         <Route path='/cart' element={<Cart/>}  />
         <Route path='/myorder' element={<MyOrder/>}  />
+         <Route path='/productcategory/:categoryname' element={<ProductCategory />}  />
       </Routes>
       </div>
    </div>
