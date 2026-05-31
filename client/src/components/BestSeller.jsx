@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import ProductCard from './ProductCard';
 
+// this is Product page -
 function BestSeller() {
 
     const {products} = useContext(AppContext)

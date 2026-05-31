@@ -1,15 +1,17 @@
 import React, { useContext } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
-import Products from './pages/Products'
-import ProductDetails from './pages/ProductDetail'
+
+import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import NavBar from './components/NavBar'
 import { AppContext } from './context/AppContext'
 import MyOrder from './pages/MyOrder'
 import LoginSignup from './components/LoginSignup'
-import ProductCategory from './pages/productCategory'
+import ProductCategory from './pages/CategoryDetail'
 import Footer from './components/Footer'
+import { Toaster } from 'react-hot-toast'
+
 
 function App() {
 
@@ -21,15 +23,14 @@ function App() {
 
     {isSellerPath ? null : <NavBar/>}
     {showUserLogin ? <LoginSignup/> : null}
-    
+    <Toaster/>
       <div className='px-6 md:px-16 lg:px-24 xl:px-32'>
       <Routes>
         <Route path='/' element={<Home/>}  />
-        <Route path='/products' element={<Products/>}  />
-        <Route path='/productdetail/:id' element={<ProductDetails/>}  />
+        <Route path='/productdetail/:id' element={<ProductDetail/>}  />
         <Route path='/cart' element={<Cart/>}  />
         <Route path='/myorder' element={<MyOrder/>}  />
-         <Route path='/productcategory/:categoryname' element={<ProductCategory />}  />
+         <Route path='/categorydetail/:name' element={<ProductCategory />}  />
       </Routes>
       </div>
       {isSellerPath ? null : <Footer/>}
