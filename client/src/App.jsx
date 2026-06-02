@@ -8,9 +8,10 @@ import NavBar from './components/NavBar'
 import { AppContext } from './context/AppContext'
 import MyOrder from './pages/MyOrder'
 import LoginSignup from './components/LoginSignup'
-import ProductCategory from './pages/CategoryDetail'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
+import CategoryDetail from './pages/CategoryDetail'
+import AllProducts from './pages/AllProducts'
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
         <Route path='/productdetail/:id' element={<ProductDetail/>}  />
         <Route path='/cart' element={<Cart/>}  />
         <Route path='/myorder' element={<MyOrder/>}  />
-         <Route path='/categorydetail/:name' element={<ProductCategory />}  />
+         <Route path='/categorydetail/:name' element={<CategoryDetail />}  /> 
+         <Route path='/products' element={<AllProducts />}  /> 
       </Routes>
       </div>
       {isSellerPath ? null : <Footer/>}

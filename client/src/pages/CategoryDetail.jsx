@@ -1,7 +1,7 @@
 
 // This is Category Detail Page -
-function ProductCategory() {
-  return <div>productCategory</div>;
+function CategoryDetail() {
+  return <div>CategoryDetail</div>;
 }
 
-export default ProductCategory;
+export default CategoryDetail;

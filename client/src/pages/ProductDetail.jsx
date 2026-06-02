@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../context/AppContext';
 import { Link, useParams } from 'react-router-dom';
-
+import { assets } from '../assets/assets';
 
 // This is Product Detail Page -
 function ProductDetail() {
 
-    const [ products, navigate, addToCart ]  = useContext(AppContext);
+    const { products, navigate, addToCart }  = useContext(AppContext);
   const [thumbnail, setThumbnail] = React.useState(null);
 
   // Will work to receive URL dynamic id here and we will filter out that id item from complete items and display here -
@@ -30,13 +30,13 @@ function ProductDetail() {
     return ( 
     
     filteredProduct && (
-        <div className="max-w-6xl w-full px-6">
-            {/* <p>
+        <div className="max-w-6xl w-full px-6 mt-16">
+            <p>
                 <Link to={"/"}>Home</Link> /
-                <Link to={"/products"}> Products</Link> /
-                <Link to={}> {product.category}</Link> /
-                <span className="text-indigo-500"> {product.name}</span>
-            </p> */}
+                <Link to={"/products"}> All Products</Link> /
+                <Link to={`/categorydetail/${filteredProduct.category.toLowerCase()}`}> {filteredProduct.category}</Link> /
+                <span className="text-indigo-500"> {filteredProduct.name}</span>
+            </p>
 
             <div className="flex flex-col md:flex-row gap-16 mt-4">
                 <div className="flex gap-3">
@@ -54,7 +54,7 @@ function ProductDetail() {
                 </div>
 
                 <div className="text-sm w-full md:w-1/2">
-                    <h1 className="text-3xl font-medium">{product.name}</h1>
+                    <h1 className="text-3xl font-medium">{filteredProduct.name}</h1>
 
                     <div className="flex items-center gap-0.5 mt-1">
                         {Array(5).fill('').map((_, i) => (
