@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 import CategoryDetail from './pages/CategoryDetail'
 import AllProducts from './pages/AllProducts'
+import Contact from './components/Contact'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path='/myorder' element={<MyOrder/>}  />
          <Route path='/categorydetail/:name' element={<CategoryDetail />}  /> 
          <Route path='/products' element={<AllProducts />}  /> 
+         <Route path='/contact' element={<Contact />}  /> 
       </Routes>
       </div>
       {isSellerPath ? null : <Footer/>}

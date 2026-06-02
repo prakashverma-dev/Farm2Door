@@ -16,7 +16,7 @@ const AppContextProvider = ({children})=>{
         const [showUserLogin, setShowUserLogin] = useState(false);
         const [products, setProducts] = useState([])
         const [cartItems, setCartItems] = useState({})
-        const [searchQuery, setSearchQuery] = useState({})
+        const [searchQuery, setSearchQuery] = useState("")
 
         // console.log("CartItems : ", cartItems)
 
@@ -98,7 +98,7 @@ const AppContextProvider = ({children})=>{
         }
 
 
-        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, cartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery  };
+        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery  };
 
         return (
                 <AppContext.Provider value={value}>
