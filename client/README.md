@@ -17,10 +17,10 @@ Note: This will impact Vite dev & build performances.
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-
 # Used Packages After Vite Project Create -
-1) tailwind CSS
-2) used google font name 'Outfit'
-3) npm i react-router-dom ---> For Project Routing
-4) npm i react-hot-toast   --> FOr notification
-5) used external website to add NavBar Component --> https://prebuiltui.com/ 
+
+1. tailwind CSS
+2. used google font name 'Outfit'
+3. npm i react-router-dom ---> For Project Routing
+4. npm i react-hot-toast --> FOr notification
+5. We are using https://prebuiltui.com/components components in our project. -->
