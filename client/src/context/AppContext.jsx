@@ -45,7 +45,7 @@ const AppContextProvider = ({children})=>{
                 }
 
                 setCartItems(cartData);
-                toast.success("added to cart")
+                toast.success("Added to Cart")
         }
 
         // update cart Item quantity -
@@ -55,7 +55,7 @@ const AppContextProvider = ({children})=>{
 
                 cartData[itemId] = quantity;
                 setCartItems(cartData);
-                toast.success("cart updated")
+                toast.success("Item Updated Successfully")
         }
 
         // total cart items
@@ -92,7 +92,9 @@ const AppContextProvider = ({children})=>{
                         if (cartData[itemId] === 0 ){
                                 delete cartData[itemId]
                         }
-                        toast.success("removed from cart")
+                        toast('Item Removed from Cart', {
+                                icon: '🗑️',
+                                });
                         setCartItems(cartData)
                 }
         }
