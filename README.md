@@ -160,7 +160,7 @@ Farm2Door/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Farm2Door.git
+git clone https://github.com/prakashverma-dev/Farm2Door.git
 cd Farm2Door
 ```
 
@@ -191,7 +191,7 @@ MONGODB_URI=your_mongodb_connection_string
 
 JWT_SECRET=your_secret_key
 
-CLIENT_URL=http://localhost:5173
+CLIENT_URL= https://farm2door-app.netlify.app/
 ```
 
 ### Run the Application
