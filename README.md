@@ -1,5 +1,6 @@
 # 🌱 Farm2Door - Online Grocery Delivery Platform
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_BADGE_ID/deploy-status)](https://app.netlify.com/sites/YOUR_SITE_NAME/deploys)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/abd38eb8-be62-4f68-a82c-91625c62bb3b/deploy-status)](https://app.netlify.com/projects/farm2door-app/deploys)
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![Node.js](https://img.shields.io/badge/Node.js-Backend-green?logo=node.js)
 ![Express.js](https://img.shields.io/badge/Express.js-Framework-black?logo=express)
