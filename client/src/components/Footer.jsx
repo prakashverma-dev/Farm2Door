@@ -18,8 +18,14 @@ export default function Footer() {
         <div className="py-16 px-6 md:px-16 lg:px-24 xl:px-32">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
                 <div>
-                    <h2 className="font-semibold text-2xl md:text-3xl text-gray-900">Farm2Door App</h2>
-                    <p className="text-sm md:text-base mt-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum unde quaerat eveniet cumque accusamus atque qui error quo enim fugiat?</p>
+                    <h2 className="font-semibold text-2xl md:text-3xl text-gray-900">Farm2Door App🌱</h2>
+                    <p className="text-sm md:text-base mt-2">
+                    At Farm2Door, we make healthy living easier by delivering fresh fruits, vegetables, dairy products, and everyday essentials directly from trusted farms to your home. Shop smart, eat fresh, and support local farmers.
+
+                    </p>
+
+                  
+
                 </div>
                 <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5">
                     {linkSections.map((section, index) => (
@@ -37,7 +43,8 @@ export default function Footer() {
                 </div>
             </div>
             <p className="py-4 text-center text-sm md:text-base text-gray-500/80">
-                Copyright 2025 © <a href="https://prebuiltui.com">PrebuiltUI</a> All Right Reserved.
+                {/* © 2026 Farm2Door. All rights reserved. */}
+                Copyright 2026 © <a href="https://github.com/prakashverma-dev/Farm2Door">Prakash Kumar Verma.</a> All Right Reserved.
             </p>
         </div>
     );
