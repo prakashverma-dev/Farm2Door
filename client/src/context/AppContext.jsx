@@ -80,7 +80,7 @@ const AppContextProvider = ({children})=>{
                         }
                 }
 
-                return Math.floor(totalAmount*1000) / 100;
+                return Math.floor(totalAmount*100) / 100;
         };
 
         // Remove product from cart

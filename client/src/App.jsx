@@ -13,6 +13,7 @@ import { Toaster } from 'react-hot-toast'
 import CategoryDetail from './pages/CategoryDetail'
 import AllProducts from './pages/AllProducts'
 import Contact from './components/Contact'
+import AddAddress from './pages/AddAddress'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
          <Route path='/categorydetail/:name' element={<CategoryDetail />}  /> 
          <Route path='/products' element={<AllProducts />}  /> 
          <Route path='/contact' element={<Contact />}  /> 
+         <Route path='/add-address' element={<AddAddress />}  /> 
       </Routes>
       </div>
       {isSellerPath ? null : <Footer/>}
