@@ -4,12 +4,12 @@ import { assets } from "../assets/assets.js"
 
 function Hero() {
   return (
-    <div className="relative">
+    <div className="relative aspect-auto md:aspect-[21/9]">
 
-        <img src={assets.main_banner_bg} alt="hero_banner_desktop" className="hidden md:block w-full" />
+        <img src={assets.main_banner_bg} alt="hero_banner_desktop" className="hidden md:block w-full h-full object-cover" />
         
         
-        <img src={assets.main_banner_bg_sm} alt="hero_banner_mobile" className="md:hidden w-full" />
+        <img src={assets.main_banner_bg_sm} alt="hero_banner_mobile" className="md:hidden w-full  h-full object-cover" />
 
         <div className="absolute inset-0 flex flex-col items-center md:items-start justify-end md:justify-center pb-24 md:pb-0 md:pl-18 lg:pl-24">
 
