@@ -30,11 +30,12 @@ function App() {
       <div className='px-6 md:px-16 lg:px-24 xl:px-32'>
       <Routes>
         <Route path='/' element={<Home/>}  />
+        <Route path='/products' element={<AllProducts />}  /> 
         <Route path='/productdetail/:id' element={<ProductDetail/>}  />
+         <Route path='/categorydetail/:categoryname' element={<CategoryDetail />}  /> 
+
         <Route path='/cart' element={<Cart/>}  />
         <Route path='/myorder' element={<MyOrder/>}  />
-         <Route path='/categorydetail/:name' element={<CategoryDetail />}  /> 
-         <Route path='/products' element={<AllProducts />}  /> 
          <Route path='/contact' element={<Contact />}  /> 
          <Route path='/add-address' element={<AddAddress />}  /> 
       </Routes>

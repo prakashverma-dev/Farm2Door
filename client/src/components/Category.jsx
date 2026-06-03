@@ -10,7 +10,7 @@ function Category() {
   const categoryHandler = (itemPath)=>{
 
     navigate(`/categorydetail/${itemPath.toLowerCase()}`);
-    // scrollTo(0, 0);
+    scrollTo(0, 0);
   }
 
   return (
