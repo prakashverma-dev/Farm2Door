@@ -14,6 +14,11 @@ import CategoryDetail from './pages/CategoryDetail'
 import AllProducts from './pages/AllProducts'
 import Contact from './components/Contact'
 import AddAddress from './pages/AddAddress'
+import SellerHome from './pages/seller/SellerHome'
+import SellerLogin from './components/seller/SellerLogin'
+import AddProduct from './pages/seller/AddProduct'
+import ProductList from './pages/seller/ProductList'
+import Orders from './pages/seller/Orders'
 
 
 function App() {
@@ -32,12 +37,22 @@ function App() {
         <Route path='/' element={<Home/>}  />
         <Route path='/products' element={<AllProducts />}  /> 
         <Route path='/productdetail/:id' element={<ProductDetail/>}  />
-         <Route path='/categorydetail/:categoryname' element={<CategoryDetail />}  /> 
-
+        <Route path='/categorydetail/:categoryname' element={<CategoryDetail />}  /> 
         <Route path='/cart' element={<Cart/>}  />
         <Route path='/myorder' element={<MyOrder/>}  />
-         <Route path='/contact' element={<Contact />}  /> 
-         <Route path='/add-address' element={<AddAddress />}  /> 
+        <Route path='/contact' element={<Contact />}  /> 
+        <Route path='/add-address' element={<AddAddress />}  />
+
+         {/* For seller Routing - */}
+        <Route path='/seller' element={isSeller ? <SellerHome/> : <SellerLogin/>}>
+
+            <Route index path='add-product' element={ isSeller ? <AddProduct/> : null}/> 
+            <Route path='product-list' element={ isSeller ? <ProductList/> : null}/> 
+            <Route path='orders' element={ isSeller ? <Orders/> : null}/> 
+            
+        </Route> 
+
+
       </Routes>
       </div>
       {isSellerPath ? null : <Footer/>}
