@@ -31,27 +31,27 @@ export default function LoginSignup() {
         <div onClick={()=> setShowUserLogin(false)} className="fixed top-0 bottom-0 left-0 right-0 z-40 flex items-center justify-center bg-black/50 text-gray-600">
 
 
-             <form onClick={(e)=> e.stopPropagation()} onSubmit={handleSubmit} className="sm:w-[350px] w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
+             <form onClick={(e)=> e.stopPropagation()} onSubmit={handleSubmit} className="sm:w-[350px] w-90% text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
+
                 <h1 className="text-gray-900 text-3xl mt-10 font-medium">{state === "login" ? "Login" : "Sign up"}</h1>
 
-                
                 <p className="text-gray-500 text-sm mt-2">Please sign in to continue</p>
                 {state !== "login" && (
-                    <div className="flex items-center mt-6 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
+                    <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-10 sm:h-12 rounded-full overflow-hidden pl-4 sm:pl-6 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
                         <input type="text" name="name" placeholder="Name" className="border-none outline-none ring-0" value={formData.name} onChange={handleChange} required />
                     </div>
                 )}
   
 
-                <div className="flex items-center w-full mt-4 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
+                <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-10 sm:h-12 rounded-full overflow-hidden pl-4 sm:pl-6 gap-2">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail-icon lucide-mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
 
                     <input type="email" name="email" placeholder="Email id" className="border-none outline-none ring-0" value={formData.email} onChange={handleChange} required />
 
                 </div>
-                <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
+                <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-10 sm:h-12 rounded-full overflow-hidden pl-4 sm:pl-6 gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
 
                     <input type="password" name="password" placeholder="Password" className="border-none outline-none ring-0" value={formData.password} onChange={handleChange} required />

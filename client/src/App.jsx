@@ -46,7 +46,7 @@ function App() {
          {/* For seller Routing - */}
         <Route path='/seller' element={isSeller ? <SellerHome/> : <SellerLogin/>}>
 
-            <Route index path='add-product' element={ isSeller ? <AddProduct/> : null}/> 
+            <Route index element={ isSeller ? <AddProduct/> : null}/> 
             <Route path='product-list' element={ isSeller ? <ProductList/> : null}/> 
             <Route path='orders' element={ isSeller ? <Orders/> : null}/> 
             

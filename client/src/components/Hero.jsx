@@ -4,7 +4,7 @@ import { assets } from "../assets/assets.js"
 
 function Hero() {
   return (
-    <div className="relative aspect-auto md:aspect-[21/9]">
+    <div className="relative aspect-auto md:aspect-[21/9] ">
 
         <img src={assets.main_banner_bg} alt="hero_banner_desktop" className="hidden md:block w-full h-full object-cover" />
         

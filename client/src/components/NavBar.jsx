@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
@@ -6,6 +6,8 @@ import { assets } from "../assets/assets";
 function NavBar() {
   const [open, setOpen] = React.useState(false);
   const { user, setUser, navigate, setShowUserLogin, cartCount, searchQuery, setSearchQuery  } = useContext(AppContext);
+
+  const [showDropDown, setShowDropDown] = useState(false);
 
   useEffect(()=>{
 
@@ -93,69 +95,109 @@ function NavBar() {
             </ul>
           </div>
         ) : (
-          <button onClick={()=> setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
+          <button   onClick={() => {
+              setOpen(false);
+              setShowUserLogin(true);
+            }} className="cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
             Login
           </button>
         )}
       </div>
 
-      <button
-        onClick={() => (open ? setOpen(false) : setOpen(true))}
-        aria-label="Menu"
-        className="sm:hidden"
-      >
-        {/* Menu Icon SVG */}
-        <svg
-          width="21"
-          height="15"
-          viewBox="0 0 21 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      
+      <div className="flex items-center gap-6 md:hidden">
+        <div
+          className="relative cursor-pointer"
+          onClick={() => navigate("/cart")}
         >
-          <rect width="21" height="1.5" rx=".75" fill="#426287" />
-          <rect x="8" y="6" width="13" height="1.5" rx=".75" fill="#426287" />
-          <rect x="6" y="13" width="15" height="1.5" rx=".75" fill="#426287" />
-        </svg>
-      </button>
+          <img src={assets.cart_icon} alt="cart-icon" className="w-6 h-6"/>
+          <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">
+            {cartCount()}
+          </button>
+        </div>
+        <button
+          onClick={() => (open ? setOpen(false) : setOpen(true))}
+          aria-label="Menu"
+          className="sm:hidden"
+        >
+          {/* Menu Icon SVG */}
+          <svg
+            width="21"
+            height="15"
+            viewBox="0 0 21 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="21" height="1.5" rx=".75" fill="#426287" />
+            <rect x="8" y="6" width="13" height="1.5" rx=".75" fill="#426287" />
+            <rect
+              x="6"
+              y="13"
+              width="15"
+              height="1.5"
+              rx=".75"
+              fill="#426287"
+            />
+          </svg>
+        </button>
+      </div>
+
+  
 
       {/* Mobile Menu */}
       <div
         className={`${
           open ? "flex" : "hidden"
-        } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}
+        } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-center gap-2 px-5 text-sm md:hidden z-100`}
       >
-        <Link to={"/"} className="block">
+        <Link onClick={() => setOpen(false)} to={"/"} >
           Home
         </Link>
-        <Link to={"/products"} className="block">
+        <Link onClick={() => setOpen(false)} to={"/products"} >
           All Products
         </Link>
-        <Link to={"/contact"} className="block">
+        <Link onClick={() => setOpen(false)} to={"/contact"} >
           Contact
         </Link>
         {user ? (
-          <div className="relative group">
+          <div className="relative group" >
             <img
               src={assets.profile_icon}
               alt="profile-icon"
               className="w-10"
+              onClick={() => setShowDropDown(!showDropDown)}
             />
-            <ul className="hidden group-hover:block absolute top-10 right-0 bg-white shadow-md rounded-md border border-gray-200 py-2 w-32 z-40 text-sm">
+
+            {showDropDown && (
+                <ul className="group-hover:block absolute top-10 left-0 bg-white shadow-md rounded-md border border-gray-200 py-2 w-32 z-50 text-sm">
               <li
-                onClick={() => navigate("/myorder")}
+                onClick={() => {  
+                  navigate("/myorder");
+                  setOpen(false);
+                } }
                 className="p-1.5 cursor-pointer"
               >
                 My Orders
               </li>
               <li
-                onClick={() => setUser(null)}
+                onClick={() => {
+                  setUser(null);
+                  setOpen(false);
+                  navigate("/");
+                }}
                 className="p-1.5 cursor-pointer"
               >
                 Logout
               </li> 
             </ul>
+            ) }
+          
           </div>
-        )  : (  <button className="cursor-pointer px-6 py-2 mt-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm">
+        )  : (  <button   onClick={() => {
+             
+            setOpen(false);
+            setShowUserLogin(true);
+            }} className="cursor-pointer px-6 py-2 mt-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm">
           Login
         </button>)}
       
