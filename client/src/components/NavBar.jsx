@@ -21,14 +21,14 @@ function NavBar() {
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
-      <Link to={"/"}>
+      <Link to={"/"} onClick={()=> setOpen(false)}>
         <h1 className="text-2xl font-bold text-orange-400">🌱Farm2Door</h1>
       </Link>
 
       {/* Desktop Menu */}
       <div className="hidden sm:flex items-center gap-8">
         <Link to={"/"}>Home</Link>
-        <Link to={"/products"}>All Products</Link>
+        <Link to={"/products"}>Products</Link>
         <Link to={"/contact"}>Contact</Link>
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
@@ -108,7 +108,9 @@ function NavBar() {
       <div className="flex items-center gap-6 md:hidden">
         <div
           className="relative cursor-pointer"
-          onClick={() => navigate("/cart")}
+          onClick={() => {
+            navigate("/cart");
+            setOpen(false)} }
         >
           <img src={assets.cart_icon} alt="cart-icon" className="w-6 h-6"/>
           <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">
@@ -148,13 +150,13 @@ function NavBar() {
       <div
         className={`${
           open ? "flex" : "hidden"
-        } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-center gap-2 px-5 text-sm md:hidden z-100`}
+        } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden z-100`}
       >
         <Link onClick={() => setOpen(false)} to={"/"} >
           Home
         </Link>
         <Link onClick={() => setOpen(false)} to={"/products"} >
-          All Products
+          Products
         </Link>
         <Link onClick={() => setOpen(false)} to={"/contact"} >
           Contact

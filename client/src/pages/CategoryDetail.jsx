@@ -32,7 +32,7 @@ function CategoryDetail() {
     {
       fileredProductsByCategory.length > 0 ? (
       <div>
-          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center">
+          <div className="my-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center">
             {fileredProductsByCategory.map((item, index) => (
               <ProductCard key={index} item={item} />
             ))}

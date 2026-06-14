@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { categories, dummyAddress } from '../assets/assets';
+import { assets, categories, dummyAddress } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
 
 function Cart() {
@@ -55,12 +55,38 @@ const placeOrder = ()=>{
                 <h1 className="text-3xl font-medium mb-6">
                     Shopping Cart <span className="text-sm text-indigo-500">{cartCount()} Items</span>
                 </h1>
-
-                <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3">
+                {cartCount() > 0 ? (
+                        <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3">
                     <p className="text-left">Product Details</p>
                     <p className="text-center">Subtotal</p>
                     <p className="text-center">Action</p>
                 </div>
+                ) : (  <div className="min-h-[64vh] flex flex-col items-center justify-center text-center px-4 md:pl-42">
+                        <img
+                            src={assets.empty_cart}
+                            alt="Empty Cart"
+                            className="w-45 mb-6"
+                        />
+
+                        <h2 className="text-3xl font-medium text-gray-800 mb-2">
+                            Your Cart is Empty!
+                        </h2>
+
+                        <p className="text-gray-500 max-w-md mb-6">
+                            Looks like you haven't added any fresh products to your cart yet.
+                        </p>
+
+                        <button onClick={()=> {
+                    navigate("/products");
+                    scrollTo(0,0);
+                    
+                    }} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition">
+                            Continue Shopping
+                        </button>
+                        </div> )
+                    
+                    }
+            
 
                 {cartData.map((product, index) => (
                     <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
@@ -118,7 +144,7 @@ const placeOrder = ()=>{
                 </button>
 
             </div>
-
+            { cartCount() > 0  &&(
             <div className="max-w-[360px] w-full bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
                 <h2 className="text-xl md:text-xl font-medium">Order Summary</h2>
                 <hr className="border-gray-300 my-5" />
@@ -185,6 +211,8 @@ const placeOrder = ()=>{
                        {paymentOption === 'COD' ? "Place Order" : "Pay Now"} 
                 </button>
             </div>
+
+            )}
         </div>
     ): null
 
