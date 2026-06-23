@@ -2,15 +2,30 @@ import React from 'react'
 
 function AddProduct() {
 
+
+  const [files, setFiles] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [offerPrice, setOfferPrice] = useState("");
+
+  const handleSubmit = (e)=>{
+
+  }
+
     return (
         <div className="py-10 flex flex-col justify-between bg-white">
-            <form className="md:p-10 p-4 space-y-5 max-w-lg">
+            <form onSubmit={handleSubmit} className="md:p-10 p-4 space-y-5 max-w-lg">
                 <div>
                     <p className="text-base font-medium">Product Image</p>
                     <div className="flex flex-wrap items-center gap-3 mt-2">
                         {Array(4).fill('').map((_, index) => (
                             <label key={index} htmlFor={`image${index}`}>
-                                <input accept="image/*" type="file" id={`image${index}`} hidden />
+                                <input accept="image/*" type="file" id={`image${index}`} hidden onChange={(e)=>{
+
+                                    // const updatedFiles[index] 
+                                }} />
                                 <img className="max-w-24 cursor-pointer" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/uploadArea.png" alt="uploadArea" width={100} height={100} />
                             </label>
                         ))}
