@@ -165,10 +165,13 @@ export const isAuthUser = async (req, res)=>{
 
             const user = await User.findById(userId).select("-password");
 
-            res.status(200).json({message : "Authorized User", success : true, user})
+            res.status(200).json({message : "User is Authorized", success : true, user});
+
 
      } catch (error) {
+
         console.log(error);
-        res.status(500).json({message : "Internal Server Error"})
+        res.status(500).json({message : "Internal Server Error"});
+        
      }
 }

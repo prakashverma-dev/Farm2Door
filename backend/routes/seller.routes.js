@@ -1,18 +1,20 @@
 import express from "express"
-import { sellerLogin } from "../controllers/seller.controller.js"
+import { isAuthSeller, sellerLogin, sellerLogout } from "../controllers/seller.controller.js"
+import { authSeller } from "../middlewares/authSeller.js"
 
 
 const sellerRoutes = express.Router()
 
 
 //Making seller login -
-sellerRoutes.post("/login", sellerLogin)
+sellerRoutes.post("/login", sellerLogin);
 
 // seller logged out Route -
-// userRoutes.get("/logout", authUserLogout, logoutUser)
+sellerRoutes.get("/logout", authSeller, sellerLogout);
 
-//seller user auth check route -
-// userRoutes.get("/is-auth", authUserLogout, isAuthUser)
+
+//seller auth check route -
+sellerRoutes.get("/is-auth", authSeller, isAuthSeller);
 
 export default sellerRoutes;
 

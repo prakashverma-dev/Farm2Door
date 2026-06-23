@@ -15,7 +15,7 @@ We have used 'module' i.e "type": "module" for loading expressjs backages rather
 >npm i cookie-parser
 >npm i jsonwebtoken  -> to autentic usr on frontend
 >npm i dotenv       to access the crendtials stored in .env file, we use dotenv package.
->npm i multer  -> to upload the images
+>npm i multer  -> to make possible to upload any media on backend.
 >npm i cloudinary   -> Here we will upload our images
 >npm i stripe    -> we will use stripe for payment gateway.
 
