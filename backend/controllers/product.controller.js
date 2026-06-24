@@ -2,7 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import Products from "../models/productModel.js";
 
 
-// add Product : /api/product/add
+// add Product : /api/product/add-product
 
 export const addProduct = async (req, res)=>{
 
@@ -39,7 +39,7 @@ export const addProduct = async (req, res)=>{
     }
 }
 
-// get Products : /api/product/get
+// get Products : /api/product/list-products
 
 export const getProducts = async( req, res)=>{
 
