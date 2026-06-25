@@ -5,11 +5,6 @@ import Products from "../models/productModel.js";
 
 
 
-
-
-
-
-
 // Place COD order : /api/order/cod 
 export const placeOrderCOD = async (req, res)=>{
     try {
@@ -50,14 +45,40 @@ export const placeOrderCOD = async (req, res)=>{
 }
 
 
+// ## Check .populate() function -
 // After Order Placed, Order Details for individual user : /api/order/user
 
-export const getUserOrders = async (req, res)=>{
+export const getUserOrder = async (req, res)=>{
     try {
+        const userId = req.userId;
+        const order = await Orders.find({
+            userId,
+            $or : [ {paymentMethod : "COD"}, {isPaid : true } ], 
+
+        }).populate("items.product address").sort({createdAt : -1});
         
+        res.status(200).json({ message:"User Orders details fetched Successfully", order, success : true });
+
     }catch (error){
 
         console.error("Error Fetching user order deatails :", error);
         res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+// get all Orders for admin/seller : /api/order/all-orders
+export const getAllOrders = async (req, res)=>{
+    try {
+        const orders = await Orders.find({
+            $or : [{paymentMethod : "COD"}, {isPaid : true}],
+
+        }).populate("items.product address").sort({createdAt : -1});
+        
+        res.status(200).json({ message:"All Orders details fetched Successfully", orders, success : true });
+        
+    } catch (error) {
+       
+        console.error("Error Fetching All orders deatails :", error);
+        res.status(500).json({ message: "Internal server error" }); 
     }
 }
