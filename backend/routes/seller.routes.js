@@ -21,4 +21,6 @@ export default sellerRoutes;
 
 // Flow -
 
-// controllers  --->  Routes  --->  Index.js
+// Firstly Create the Schema and Model, then default export and Go to -
+
+// controllers (export multiple)  --->  Routes (default export)  --->  Index.js (import all Routes ENDpoints here).

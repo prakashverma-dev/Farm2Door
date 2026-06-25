@@ -20,6 +20,7 @@ export default userRoutes;
 
 // Flow -
 
+// Firstly Create the Schema and Model, then default export and Go to -
 
-// controllers  --->  Routes  --->  Index.js
+// controllers (export multiple)  --->  Routes (default export)  --->  Index.js (import all Routes ENDpoints here).
 
