@@ -21,39 +21,49 @@ connectDB();
 // To connect Cloudinary -
 connectCloudinary();
 
+//All Middlewares are here  -
+
+//Allowing the cross-origin requests from the React frontend port to backend port, as frontend and backend are on different ports (origins), and if we dont allow frontend origin to backend it will cause the browser's safety features to reject the response when the expected Access-Control-Allow-Origin header is missing.
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true // Include this if you are using cookies or sessions
+}));
+
+app.use(express.json()); // Keep this after CORS
+app.use(cookieParser());
+
+
+
 // Defining the origins to allow on backend end Point from frontend -
 // Define the frontend url here -
-const allowedOrigins = ["http://localhost:5173/"]
+// const allowedOrigins = ["http://localhost:5173/"]
+// app.use(cors({
+//     origin: allowedOrigins, credentials: true
+// }));
+// app.use(express.json());
 
-
-// middlewares 
-app.use(express.json());
-app.use(cors({
-    origin: allowedOrigins, credentials: true
-}));
-app.use(cookieParser());
 
 // API ENDpoints -
 
 // User All Routes -
-app.use("/api/user", userRoutes );
+app.use("/api/user", userRoutes);
 // Seller All Routes -
-app.use("/api/seller", sellerRoutes );
+app.use("/api/seller", sellerRoutes);
 // Product All Routes -
-app.use("/api/product", productRoutes );
+app.use("/api/product", productRoutes);
 // Cart All Routes -
-app.use("/api/cart", cartRoutes );
+app.use("/api/cart", cartRoutes);
 // Order All Routes -
-app.use("/api/order", orderRoutes );
+app.use("/api/order", orderRoutes);
 // Address All Routes -
-app.use("/api/address", addressRoutes );
+app.use("/api/address", addressRoutes);
 
 
-// Testing -
+// Home Page of Backend/Testing  -
 
-// app.get("/", (req, res) => {
-//     res.send("Hello World!")
-// })
+app.get("/", (req, res) => {
+    res.send("Welcome to farm2Door-app backend!")
+})
 
 
 // To listen the server

@@ -7,7 +7,7 @@ import { addProduct, changeStock, getProductById, getProducts } from "../control
 const productRoutes = express.Router();
 
 // add a new product - we used multer here to recived the images -
-productRoutes.post("/add-product", upload.array('images'), authSeller, addProduct);
+productRoutes.post("/add-product",  authSeller, upload.array('image'), addProduct);
 // show all products -
 productRoutes.get("/list-products", getProducts); //Here we dont need sellerAuth, as it can viewed by anyone from frontend.
 //show single product -
