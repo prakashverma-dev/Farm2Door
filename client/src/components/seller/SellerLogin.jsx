@@ -27,42 +27,57 @@ function SellerLogin() {
 
             e.preventDefault() 
 
-        try {
-                
-                 // The code execution waits here until the server responds the successull 200 code, if not directly jump to the catch block, the response error there  -
+
+                setIsSeller(true);
+                navigate("/seller");
+
+
+   /*      try {
+                // Note : While working with async await with axios :-
+
+                // a) If the backend returns 2xx status code : It will be received in the standard {data} property.Remember, if not 2xx we will not received any {data} property rather received in catch block as error.
+                //b) If backend returns 4xx or 5xx status code : Axios automatically rejects the promise, skipping {data} and throwing an error that must be caught inside the catch block with Errro response from backend.
+
+                // Awaiting the Successfull 2xx Status code here only to receice standard {data} property by axios. if Not 2xx then Error Response will be throw in catch block by axios -  
                 const {data} = await axios.post("/api/seller/login", {
                     email : formData.email,
                     password : formData.password,
 
                 });
-
+                
                 // console.log("Response Data On 200 Code, login successful :", data);
 
-                setIsSeller(true);
-                toast.success(data.message);
-                navigate("/seller");
-
-
+                // Double checking Success with backend manual success property added -
+                if (data.success){
+                    setIsSeller(true);
+                    toast.success(data.message);
+                    navigate("/seller");
+                    
+                }
+        
         } catch (error) {
 
             // Note : When the backend returns a non-2xx status code (such as 400, 401, 403, 404, 500), Axios automatically throws an error and reach to catch block directly so dont expect to handle error in response data above like if (data.success) else.
 
+            // Now, Checking the thrown Error Type, is it Response error or something else -
+            
                     if (error.response) {
                     // Backend responded with an error status (400, 401, 500...)
+                        console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
                         toast.error(error.response.data.message);
 
                     } else if (error.request) {
                         // Request was made but no response received (e.g., server is down) 
-                        toast.error("Server is not responding.");
+                        toast.error("Server is Down!");
                     } else {
                         // Something else happened
                         toast.error(error.message);
                     }
 
-                    // console.log("Catch Block:", error.response);
+                    
 
                 }
-
+*/
       }
   
       const handleChange = (e) => {
