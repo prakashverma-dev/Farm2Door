@@ -24,9 +24,6 @@ function ProductDetail() {
 
 
 
-
-
-
     return ( 
     
     filteredProduct && (
@@ -35,7 +32,7 @@ function ProductDetail() {
                 <Link to={"/"}>Home</Link> /
                 <Link to={"/products"}> All Products</Link> /
                 <Link to={`/categorydetail/${filteredProduct.category.toLowerCase()}`}> {filteredProduct.category}</Link> /
-                <span className="text-indigo-500"> {filteredProduct.name}</span>
+                <span className="text-green-700"> {filteredProduct.name}</span>
             </p>
 
             <div className="flex flex-col md:flex-row gap-16 mt-4">
@@ -93,7 +90,7 @@ function ProductDetail() {
                           navigate("/cart");
                         }}
                                 
-                                              className="w-full py-3.5 cursor-pointer font-medium bg-indigo-500 text-white hover:bg-indigo-600 transition" >
+                                              className="w-full py-3.5 cursor-pointer font-medium bg-green-700 text-white hover:bg-green-900 transition" >
                             Buy now
                         </button>
                     </div>

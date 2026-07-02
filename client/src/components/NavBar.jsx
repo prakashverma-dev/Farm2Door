@@ -61,13 +61,13 @@ function NavBar() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </div> 
 
         <div className="relative cursor-pointer" onClick={()=> navigate("/cart")}>
    
           <img src={assets.cart_icon} alt="cart-icon" className="w-6 h-6"/>
 
-          <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">
+          <button className="absolute -top-2 -right-3 text-xs text-white bg-green-600 w-[18px] h-[18px] rounded-full">
             {cartCount()}
           </button>
         </div>
@@ -87,7 +87,10 @@ function NavBar() {
                 My Orders
               </li>
               <li
-                onClick={() => setUser(null)}
+                onClick={() => {
+                  setUser(null);
+                  navigate("/");
+                }}
                 className="p-1.5 cursor-pointer"
               >
                 Logout
@@ -97,8 +100,8 @@ function NavBar() {
         ) : (
           <button   onClick={() => {
               setOpen(false);
-              setShowUserLogin(true);
-            }} className="cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
+              setShowUserLogin(true); 
+            }} className="cursor-pointer px-8 py-2 bg-green-700 hover:bg-green-900 transition text-white rounded-full">
             Login
           </button>
         )}
@@ -113,7 +116,7 @@ function NavBar() {
             setOpen(false)} }
         >
           <img src={assets.cart_icon} alt="cart-icon" className="w-6 h-6"/>
-          <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">
+          <button className="absolute -top-2 -right-3 text-xs text-white bg-green-600 w-[18px] h-[18px] rounded-full">
             {cartCount()}
           </button>
         </div>

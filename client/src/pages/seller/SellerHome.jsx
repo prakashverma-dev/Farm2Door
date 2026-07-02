@@ -21,9 +21,9 @@ function SellerHome() {
                     <p>Hi! Admin</p>
                     <button onClick={()=> {
                       setIsSeller(false);
-                      navigate("/");
+                      navigate("/seller");
                       
-                    } } className='border rounded-full text-sm px-4 py-1'>Logout</button>
+                    } } className='border rounded-full text-sm px-4 py-1 cursor-pointer'>Logout</button>
                 </div>
             </div>
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 
 import ProductDetail from './pages/ProductDetail'
@@ -23,7 +23,7 @@ import Orders from './pages/seller/Orders'
 
 function App() {
 
-  const {isSeller,  showUserLogin} = useContext(AppContext);
+  const {isSeller, user,  showUserLogin} = useContext(AppContext);
   const isSellerPath = useLocation().pathname.includes("seller");
 
   return (
@@ -39,7 +39,7 @@ function App() {
         <Route path='/productdetail/:id' element={<ProductDetail/>}  />
         <Route path='/categorydetail/:categoryname' element={<CategoryDetail />}  /> 
         <Route path='/cart' element={<Cart/>}  />
-        <Route path='/myorder' element={<MyOrder/>}  />
+        <Route path='/myorder' element={user ? <MyOrder/> : <Navigate to="/" replace/>}  />
         <Route path='/contact' element={<Contact />}  /> 
         <Route path='/add-address' element={<AddAddress />}  />
 

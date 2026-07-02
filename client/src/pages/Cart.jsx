@@ -53,7 +53,7 @@ const placeOrder = ()=>{
        <div className="flex flex-col md:flex-row py-16 max-w-6xl w-full px-6 mx-auto">
             <div className='flex-1 max-w-4xl'>
                 <h1 className="text-3xl font-medium mb-6">
-                    Shopping Cart <span className="text-sm text-indigo-500">{cartCount()} Items</span>
+                    Shopping Cart <span className="text-sm text-green-500 ">{cartCount()} Items</span>
                 </h1>
                 {cartCount() > 0 ? (
                         <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3">
@@ -80,8 +80,8 @@ const placeOrder = ()=>{
                     navigate("/products");
                     scrollTo(0,0);
                     
-                    }} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition">
-                            Continue Shopping
+                    }} className="bg-primary-txt hover:bg-green-700 text-white px-6 py-3 rounded-lg transition">
+                            Continue Shopping ...
                         </button>
                         </div> )
                     
@@ -136,7 +136,7 @@ const placeOrder = ()=>{
                     navigate("/products");
                     scrollTo(0,0);
                     
-                    }} className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium">
+                    }} className="group cursor-pointer flex items-center mt-8 gap-2 text-primary-txt font-medium">
                     <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.09 5.5H1M6.143 10 1 5.5 6.143 1" stroke="#615fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -155,7 +155,7 @@ const placeOrder = ()=>{
                         <p className="text-gray-500">
                             {selectedAddress ? `${selectedAddress.street}, ${selectedAddress.city},${selectedAddress.state}, ${selectedAddress.country}` : "No Address Found" }
                         </p>
-                        <button onClick={() => setShowAddress(!showAddress)} className="text-indigo-500 hover:underline cursor-pointer">
+                        <button onClick={() => setShowAddress(!showAddress)} className="text-green-600 hover:underline cursor-pointer">
                             Change
                         </button>
                         {showAddress && (
@@ -175,7 +175,7 @@ const placeOrder = ()=>{
                                     
                                 } )}
 
-                                <p onClick={() => navigate("/add-address") } className="text-indigo-500 text-center cursor-pointer p-2 hover:bg-indigo-500/10">
+                                <p onClick={() => navigate("/add-address") } className="text-green-800 text-center cursor-pointer p-2 hover:bg-indigo-500/10">
                                     Add address
                                 </p>
                             </div>
@@ -207,7 +207,7 @@ const placeOrder = ()=>{
                     </p>
                 </div>
 
-                <button className="w-full py-3 mt-6 cursor-pointer bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition">
+                <button className="w-full py-3 mt-6 cursor-pointer bg-primary-btn text-white font-medium hover:bg-primary-hover-btn transition">
                        {paymentOption === 'COD' ? "Place Order" : "Pay Now"} 
                 </button>
             </div>

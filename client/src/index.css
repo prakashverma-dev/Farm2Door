@@ -6,6 +6,12 @@
     font-family: "Outfit", sans-serif;
 }
 
-@theme{
-    --color-primary: #4b0082
+@theme {
+
+    /* Tailwind Generates CSS like bg-primary-btn, text-primary-btn, etc. */
+    --color-primary-btn: #15803d;
+    --color-primary-hover-btn: #14532d;
+    --color-primary-txt: #15803d;
+
+    --color-primary: #4b0082;
 }

@@ -17,6 +17,7 @@ axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 
 
+// Context API -
 
 export const AppContext = createContext(null);
 
