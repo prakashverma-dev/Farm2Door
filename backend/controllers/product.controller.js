@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import Products from "../models/productModel.js";
+import fs from "fs";
 
 
 // add Product : /api/product/add-product
@@ -7,20 +8,44 @@ import Products from "../models/productModel.js";
 export const addProduct = async (req, res)=>{
 
     try {
+        // req.body will contain the text fields only.
+        // we receiving the single file upload from form data in req.file.
+        // we receiving the multiple files upload from form data in form of array in req.files.
+
+        // console.log("Req.files :", req.files)
+        // console.log("Req.body :", req.body)
+
         const {name, description, price, offerPrice, category } = req.body;
 
-        // To handle image, when seller upload to add to product -
-        const images = req.files;
+        //Multer handles form-file data in req.files object, when only passed by enctype="multipart/form-data"- 
+        const files = req.files;
+
+         if (!files || files.length === 0) {
+            return res.status(400).json({ message: 'No files uploaded', success : false });
+
+            }
+        
+        if(!name || !description || !price || !offerPrice || !category ){
+            res.status(400).json({message : "All Fields are required", success : false});  
+        }
+
+ 
 
         // Firstly we fetch upload images from multer, then we make that image upload to cloudinary then cloudinary returns image URL which we save into our database i.e cloudinary Images Url in our database.
-        let imageURL = await Promise.all(images.map(async (item)=>{
+        let imagesURL = await Promise.all(
+            
+            files.map(async (item)=>{
 
-            let result = await cloudinary.uploader.upload(item.path, {
-                resource_type : "image"
-            });
+                const result = await cloudinary.uploader.upload(
+                    item.path, 
+                    {resource_type : "image"} );
 
-            return result.secure_url;
+                   // Delete local file
+                    fs.unlinkSync(item.path);
+
+                return result.secure_url;
         }));
+
 
         await Products.create({
             name, 
@@ -28,7 +53,7 @@ export const addProduct = async (req, res)=>{
             price, 
             offerPrice, 
             category,
-            image : imageURL
+            images : imagesURL
         })
 
         res.status(201).json({message : "Product added successfully", success : true});

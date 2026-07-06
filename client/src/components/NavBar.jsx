@@ -86,6 +86,7 @@ function NavBar() {
               >
                 My Orders
               </li>
+         
               <li
                 onClick={() => {
                   setUser(null);
@@ -95,6 +96,12 @@ function NavBar() {
               >
                 Logout
               </li> 
+                   <li
+                onClick={() => navigate("/seller")}
+                className="p-1.5 cursor-pointer"
+              >
+                Seller Access
+              </li>
             </ul>
           </div>
         ) : (
@@ -108,7 +115,7 @@ function NavBar() {
       </div>
 
       
-      <div className="flex items-center gap-6 md:hidden">
+      <div className="flex items-center gap-6 sm:hidden">
         <div
           className="relative cursor-pointer"
           onClick={() => {
@@ -184,6 +191,7 @@ function NavBar() {
               >
                 My Orders
               </li>
+          
               <li
                 onClick={() => {
                   setUser(null);
@@ -193,7 +201,17 @@ function NavBar() {
                 className="p-1.5 cursor-pointer"
               >
                 Logout
-              </li> 
+              </li>
+                  <li
+                onClick={() => {
+                  
+                  navigate("/seller");
+                  setOpen(false);
+                }}
+                className="p-1.5 cursor-pointer"
+              >
+                Seller Access
+              </li>  
             </ul>
             ) }
           

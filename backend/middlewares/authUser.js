@@ -6,7 +6,7 @@ export const authUser = (req, res, next)=>{
         const {usertoken} = req.cookies;
 
         if(!usertoken){
-           return res.status(401).json({message : "Unauthorized User, token not found!", false : false});
+           return res.status(401).json({message : "Unauthorized User, token not found!", success : false});
         }
 
         const decoded = jsonwebtoken.verify(usertoken, process.env.JWT_SECRET);
@@ -24,6 +24,6 @@ export const authUser = (req, res, next)=>{
 
     } catch (error) {
         console.error("Authentication error :", error);
-        return res.status(401).json({message : "Unauthorized User, token not found!", false : false});
+        return res.status(401).json({message : "Unauthorized User, token not found!", success : false});
     }
 }

@@ -6,7 +6,7 @@ export const authSeller = (req, res, next)=>{
         const {sellerToken} = req.cookies;
 
         if(!sellerToken){
-           return res.status(401).json({message : "Unauthorized Seller, token not found!", false : false});
+           return res.status(401).json({message : "Unauthorized Seller, token not found!", success : false});
         }
 
         const decoded = jsonwebtoken.verify(sellerToken, process.env.JWT_SECRET);
@@ -18,7 +18,7 @@ export const authSeller = (req, res, next)=>{
         // Attaching the user id to the request object for further use in the protected routes -
         // adding a custom property (userId) to the request object after successfully verifying the JWT token for all protected routes -
 
-        // req["sellerId"] = decoded["email"] ; 
+        req["sellerId"] = decoded["email"] ; 
 
         if(decoded["email"] === process.env.SELLER_EMAIL){ //we made jwt signin using email -
             next()
@@ -28,6 +28,6 @@ export const authSeller = (req, res, next)=>{
 
     } catch (error) {
         console.error("Authentication error :", error);
-        return res.status(401).json({message : "Unauthorized User, token not found!", false : false});
+        return res.status(401).json({message : "Unauthorized Seller, token not found!", success : false});
     }
 }

@@ -17,9 +17,9 @@ dotenv.config();
 const app = express();
 
 // For mongodb connection -
-connectDB();
+await connectDB();
 // To connect Cloudinary -
-connectCloudinary();
+await connectCloudinary();
 
 //All Middlewares are here  -
 
@@ -32,15 +32,6 @@ app.use(cors({
 app.use(express.json()); // Keep this after CORS
 app.use(cookieParser());
 
-
-
-// Defining the origins to allow on backend end Point from frontend -
-// Define the frontend url here -
-// const allowedOrigins = ["http://localhost:5173/"]
-// app.use(cors({
-//     origin: allowedOrigins, credentials: true
-// }));
-// app.use(express.json());
 
 
 // API ENDpoints -

@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
         type : Number,
         required : true
     },
-    image : {
+    images : {
         type : Array,
         required : true
     },
@@ -36,10 +36,10 @@ const productSchema = new mongoose.Schema({
         default : true,
         required : true
     },
-});
+}, {timestamps : true});
 
 
 // Prouduct Model -
-const Products = mongoose.model("all_products", productSchema);
+const Products = mongoose.model("all_Products", productSchema);
 
 export default Products;

@@ -27,12 +27,7 @@ function SellerLogin() {
 
             e.preventDefault() 
 
-
-                setIsSeller(true);
-                navigate("/seller");
-
-
-   /*      try {
+          try {
                 // Note : While working with async await with axios :-
 
                 // a) If the backend returns 2xx status code : It will be received in the standard {data} property.Remember, if not 2xx we will not received any {data} property rather received in catch block as error.
@@ -47,11 +42,12 @@ function SellerLogin() {
                 
                 // console.log("Response Data On 200 Code, login successful :", data);
 
-                // Double checking Success with backend manual success property added -
+                // Double checking Success with backend manual success property added//if success property there with true then -
                 if (data.success){
+                    
                     setIsSeller(true);
-                    toast.success(data.message);
                     navigate("/seller");
+                    toast.success(data.message);
                     
                 }
         
@@ -63,12 +59,12 @@ function SellerLogin() {
             
                     if (error.response) {
                     // Backend responded with an error status (400, 401, 500...)
-                        console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
+                        // console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
                         toast.error(error.response.data.message);
 
                     } else if (error.request) {
                         // Request was made but no response received (e.g., server is down) 
-                        toast.error("Server is Down!");
+                        toast.error(error.message);
                     } else {
                         // Something else happened
                         toast.error(error.message);
@@ -77,7 +73,7 @@ function SellerLogin() {
                     
 
                 }
-*/
+
       }
   
       const handleChange = (e) => {
@@ -92,7 +88,7 @@ function SellerLogin() {
 
 
              <form onClick={(e)=> e.stopPropagation()} onSubmit={handleSubmit} className="sm:w-[350px] w-90% text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
-                <h1 className="text-gray-900 text-2xl mt-10 font-medium"><span className="text-indigo-500">Seller</span> Login</h1>
+                <h1 className="text-gray-900 text-2xl mt-10 font-medium"><span className="text-yellow-500">Seller</span> Login</h1>
 
                 <p className="text-gray-500 text-sm mt-2">Please sign in to continue</p>
   
@@ -113,11 +109,11 @@ function SellerLogin() {
                 {/* <div className="mt-4 text-left text-indigo-500">
                     <button className="text-sm" type="reset">Forget password?</button>
                 </div> */}
-                <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity">
+                <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-yellow-500 hover:opacity-90 transition-opacity">
                     Login
                 </button>
                 
-                <p className="text-gray-500 text-sm mt-3 mb-11">Go To Product Page <Link to={"/"} className="text-indigo-500 hover:underline">click here</Link></p>
+                <p className="text-gray-500 text-sm mt-3 mb-11">User Page <Link to={"/"} className="text-yellow-500 hover:underline">click here</Link></p>
             </form>
         </div>
            

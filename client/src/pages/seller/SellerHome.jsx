@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets';
 import { NavLink, Outlet } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function SellerHome() {
 
-    const {isSeller, setIsSeller, navigate} = useContext(AppContext)
+    const {isSeller, setIsSeller, navigate, axios} = useContext(AppContext);
 
     const sidebarLinks = [
         { name: "Add Product", path: "/seller", icon: assets.add_icon },
@@ -13,17 +14,48 @@ function SellerHome() {
         { name: "Orders", path: "/seller/orders", icon: assets.order_icon},
     ];
 
+    const logout = async (req, res)=>{
+
+        // Without backend -
+        //  setIsSeller(false);
+        //  navigate("/seller");
+
+        try {
+                  const {data} = await axios.get("/api/seller/logout");
+
+                  if(data.success){
+
+                        setIsSeller(false);              
+                        navigate("/seller");
+                        toast.success(data.message);
+                      
+                  }
+            
+        } catch (error) {
+                          
+                    if (error.response) {
+                    // Backend responded with an error status (400, 401, 500...)
+                        // console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
+                        toast.error(error.response.data.message);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }
+        }
+               
+    }
+
     return (
         <>
             <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
                 <h1 className='text-2xl text-orange-600'>Farm2Door App</h1>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! Admin</p>
-                    <button onClick={()=> {
-                      setIsSeller(false);
-                      navigate("/seller");
-                      
-                    } } className='border rounded-full text-sm px-4 py-1 cursor-pointer'>Logout</button>
+                    <button onClick={logout} className='border rounded-full text-sm px-4 py-1 cursor-pointer'>Logout</button>
                 </div>
             </div>
 

@@ -46,9 +46,9 @@ function ProductCard({item}) {
             <div className='flex items-end justify-between mt-3'>
                <p className='md:text-xl text-base font-medium text-green-500'>
                 
-                ${item.offerPrice}
+                ₹{item.offerPrice}
 
-                <span className='text-gray-500/60 md:text-sm text-xs line-through'>${item.price}</span>
+                <span className='text-gray-500/60 md:text-sm text-xs line-through'>₹{item.price}</span>
                </p>
 
 

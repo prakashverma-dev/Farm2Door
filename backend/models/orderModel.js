@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         ref : "login_signup_users" //This must match exaclty model name of User Model.
     },
     items : [{
-        product : { type : String, required : true, ref : "all_products" },
+        product : { type : String, required : true, ref : "all_Products" },
         quantity : { type : Number, required : true},
     }],
     amount : {

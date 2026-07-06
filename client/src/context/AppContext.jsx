@@ -1,15 +1,13 @@
 import { createContext, use, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { dummyProducts } from "../assets/assets";
 import toast from "react-hot-toast"
 import axios from 'axios'
 
 
-
+// To send cookies in API request -
 axios.defaults.withCredentials = true ;
-
 // Base URL of Backend adding here -
-
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -17,31 +15,70 @@ axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 
 
-// Context API -
+// Context API Setup -
 
 export const AppContext = createContext(null);
 
 const AppContextProvider = ({children})=>{
 
         const navigate = useNavigate();
+        const location = useLocation();
         const [user, setUser] = useState(null);
-        const [isSeller, setIsSeller] = useState(null);
+        const [isSeller, setIsSeller] = useState(false);
         const [showUserLogin, setShowUserLogin] = useState(false);
         const [products, setProducts] = useState([])
         const [cartItems, setCartItems] = useState({})
         const [searchQuery, setSearchQuery] = useState("")
 
-        // console.log("CartItems : ", cartItems)
+        // console.log("CartItems : ", cartItems);
 
+
+        // Fetch Seller Status, Is seller Authorized or not means seller loggined or not -
+        const checkSellerAuth = async ()=>{
+                try {
+                       const {data} = await axios.get("/api/seller/is-auth");
+
+                       if(data.success){
+                                setIsSeller(true);
+                       }
+
+                } catch (error) {
+     
+                    if (error.response) {
+                        // Backend responded with an error status (400, 401, 500...)
+                        // console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
+                        setIsSeller(false);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+                        setIsSeller(false);
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                        setIsSeller(false);
+                    }
+                    
+                }
+        }
     
         // Fetch all Products Data -
         const fetchProductsData = async ()=>{
                 setProducts(dummyProducts)
         }
 
+        // Fetches products at Page Refresh 
         useEffect(()=>{
                 fetchProductsData();
         },[])
+
+        // Checks seller authentication only at /seller route -
+        useEffect(() => {
+                if (location.pathname.startsWith("/seller")) {
+                        checkSellerAuth();
+                }
+        }, [location.pathname]);
+
 
 
         // Cart Functionality Functions -
