@@ -4,9 +4,9 @@ import { assets } from '../../assets/assets';
 import { NavLink, Outlet } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-function SellerHome() {
+function SellerDashboard() {
 
-    const {isSeller, setIsSeller, navigate, axios} = useContext(AppContext);
+    const {isSeller, setIsSeller, navigate, axios, sellerInfo} = useContext(AppContext);
 
     const sidebarLinks = [
         { name: "Add Product", path: "/seller", icon: assets.add_icon },
@@ -52,9 +52,11 @@ function SellerHome() {
     return (
         <>
             <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
-                <h1 className='text-2xl text-orange-600'>Farm2Door App</h1>
+                 
+        <h1 onClick={()=> navigate("/")} className="cursor-pointer text-2xl font-bold text-orange-400 ">🌱Farm2Door</h1>
+      
                 <div className="flex items-center gap-5 text-gray-500">
-                    <p>Hi! Admin</p>
+                    <p>Hi! {sellerInfo?.name} </p>
                     <button onClick={logout} className='border rounded-full text-sm px-4 py-1 cursor-pointer'>Logout</button>
                 </div>
             </div>
@@ -87,5 +89,5 @@ function SellerHome() {
     );
 };
 
-export default SellerHome
+export default SellerDashboard
 

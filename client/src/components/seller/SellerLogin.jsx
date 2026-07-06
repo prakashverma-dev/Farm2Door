@@ -113,7 +113,7 @@ function SellerLogin() {
                     Login
                 </button>
                 
-                <p className="text-gray-500 text-sm mt-3 mb-11">User Page <Link to={"/"} className="text-yellow-500 hover:underline">click here</Link></p>
+                <p className="text-gray-500 text-sm mt-3 mb-11"> All Products <Link to={"/"} className="text-yellow-500 hover:underline">click here</Link></p>
             </form>
         </div>
            

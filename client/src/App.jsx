@@ -14,11 +14,11 @@ import CategoryDetail from './pages/CategoryDetail'
 import AllProducts from './pages/AllProducts'
 import Contact from './components/Contact'
 import AddAddress from './pages/AddAddress'
-import SellerHome from './pages/seller/SellerHome'
 import SellerLogin from './components/seller/SellerLogin'
 import AddProduct from './pages/seller/AddProduct'
 import ProductList from './pages/seller/ProductList'
 import Orders from './pages/seller/Orders'
+import SellerDashboard from './pages/seller/SellerDashboard.jsx'
 
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
         <Route path='/add-address' element={<AddAddress />}  />
 
          {/* For seller Routing - */}
-        <Route path='/seller' element={isSeller ? <SellerHome/> : <SellerLogin/>}>
+        <Route path='/seller' element={isSeller ? <SellerDashboard/> : <SellerLogin/>}>
 
             <Route index element={ isSeller ? <AddProduct/> : null}/> 
             <Route path='product-list' element={ isSeller ? <ProductList/> : null}/> 

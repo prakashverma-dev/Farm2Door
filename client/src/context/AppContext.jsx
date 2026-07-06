@@ -28,7 +28,8 @@ const AppContextProvider = ({children})=>{
         const [showUserLogin, setShowUserLogin] = useState(false);
         const [products, setProducts] = useState([])
         const [cartItems, setCartItems] = useState({})
-        const [searchQuery, setSearchQuery] = useState("")
+        const [searchQuery, setSearchQuery] = useState("");
+        const [sellerInfo, setSellerInfo] = useState(null);
 
         // console.log("CartItems : ", cartItems);
 
@@ -40,13 +41,13 @@ const AppContextProvider = ({children})=>{
 
                        if(data.success){
                                 setIsSeller(true);
+                                setSellerInfo(data.seller)
                        }
 
                 } catch (error) {
      
                     if (error.response) {
                         // Backend responded with an error status (400, 401, 500...)
-                        // console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
                         setIsSeller(false);
 
                     } else if (error.request) {
@@ -64,7 +65,30 @@ const AppContextProvider = ({children})=>{
     
         // Fetch all Products Data -
         const fetchProductsData = async ()=>{
-                setProducts(dummyProducts)
+                // setProducts(dummyProducts)
+
+                try {
+                   const {data} = await axios.get("api/product/list-products");
+                   if(data.success){
+
+                        // console.log(data.products)
+                        setProducts(data.products);
+                   }
+                    
+                } catch (error) {
+                       if (error.response) {
+                        // Backend responded with an error status (400, 401, 500...)
+                        toast.error(error.response.data.message);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+              
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }  
+                }
         }
 
         // Fetches products at Page Refresh 
@@ -150,7 +174,7 @@ const AppContextProvider = ({children})=>{
         }
 
 
-        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios  };
+        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo  };
 
         return (
                 <AppContext.Provider value={value}>
