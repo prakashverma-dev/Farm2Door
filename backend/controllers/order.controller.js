@@ -10,9 +10,11 @@ export const placeOrderCOD = async (req, res)=>{
     try {
 
         const userId = req.userId; //from authenticated user id attached to request body.
-        const {items, address} = req.body;
+        const {items, address} = req.body; 
+
+
         if(!items || !address){
-             res.status(400).json({ message: "Items and address are required", success : false });
+             res.status(400).json({ message: "Address and Items are required", success : false });
         }
 
         // Calculating the total amount of the order -
@@ -29,7 +31,7 @@ export const placeOrderCOD = async (req, res)=>{
         await Orders.create({
             userId,
             items,
-            address,
+            address : address,
             amount,
             paymentMethod : "COD",
             isPaid : false
@@ -46,18 +48,21 @@ export const placeOrderCOD = async (req, res)=>{
 
 
 // ## Check .populate() function -
-// After Order Placed, Order Details for individual user : /api/order/user
-
+// After Order Placed, Order Details for individual user : /api/order/details
 export const getUserOrder = async (req, res)=>{
     try {
         const userId = req.userId;
-        const order = await Orders.find({
+        const orderDetails = await Orders.find({
             userId,
             $or : [ {paymentMethod : "COD"}, {isPaid : true } ], 
 
         }).populate("items.product address").sort({createdAt : -1});
+
+        if(orderDetails.length == 0){
+            return res.status(404).json({ message: "No Order Placed!", success : false });
+        }
         
-        res.status(200).json({ message:"User Orders details fetched Successfully", order, success : true });
+        res.status(200).json({ message:"User Orders details fetched Successfully", orderDetails , success : true });
 
     }catch (error){
 

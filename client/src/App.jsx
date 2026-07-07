@@ -39,7 +39,7 @@ function App() {
         <Route path='/productdetail/:id' element={<ProductDetail/>}  />
         <Route path='/categorydetail/:categoryname' element={<CategoryDetail />}  /> 
         <Route path='/cart' element={<Cart/>}  />
-        <Route path='/myorder' element={user ? <MyOrder/> : <Navigate to="/" replace/>}  />
+        <Route path='/my-orders' element={<MyOrder/> }  />
         <Route path='/contact' element={<Contact />}  /> 
         <Route path='/add-address' element={<AddAddress />}  />
 

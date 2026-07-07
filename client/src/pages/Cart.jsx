@@ -1,25 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { assets, categories, dummyAddress } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
+import toast from 'react-hot-toast';
 
 function Cart() {
 
-  const { products, navigate, cartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios }  = useContext(AppContext);
+  const { products, navigate, cartItems, setCartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios, user }  = useContext(AppContext);
 
   // state to store the products available in cart -
   const [cartData, setCartData] = useState([]);
+//   console.log("cartData : ", cartData) 
 
-//   console.log("cartData : ", cartData)
-
-  // State to store the address -
-  const [address, setAddress] = useState([])
+  // State to store all addresses added by user -
+  const [addresses, setAddresses] = useState([])
   const [showAddress, setShowAddress] = useState(false)
-
    // State to store selected address -
   const [selectedAddress, setSelectedAddress] = useState(null)
-
   // For payment 
   const [paymentOption, setPaymentOption] = useState('COD')
+
+
+  
 
   //  LEFT SECTION // To get cart data  -
   const getCart =()=>{
@@ -43,26 +44,85 @@ function Cart() {
 
 
 
-//  RIGHT SECTION // TO get User Added address -
+// IGHT SECTION // TO get User Added address -
 
 const getUserAddress = async ()=>{
     try {
         const {data}= await axios.get("/api/address/get");
         if(data.success){
-            
+            setAddresses(data.addresses);
+
+            // if any address present for that user -
+            if(data.addresses.length > 0){
+                setSelectedAddress(data.addresses[0]);
+            }
         }
     } catch (error) {
-        
-    }
+       if (error.response) {
+                        // Backend responded with an error status (400, 401, 500...)
+                        // toast.error(error.response.data.message);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+              
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }  
+                }
 }
 
+useEffect(()=>{
+    if(user){
+        getUserAddress();
+    }
+},[user])
 
 
 
+// To Place order Either COD or Online Payment -
 
-// To Place order -
-const placeOrder = ()=>{
+const placeOrder = async ()=>{
+        try {
+            if(!selectedAddress){
+                toast.error("Please Select an Address!")
+            }
 
+            // TO Place COD Order Only -
+            if(paymentOption === "COD"){
+
+                const {data} = await axios.post("/api/order/cod",{
+                    items : cartData.map((item)=>({
+                        product : item._id,
+                        quantity : item.quantity
+                    })),
+                    address : selectedAddress
+                });
+
+                if(data.success){
+                    toast.success(data.message);
+                    setCartItems({});
+                    navigate("/my-orders")
+                }
+
+            }
+
+        } catch (error) {
+       
+                    if (error.response) {
+                        toast.error(error.response.data.message);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+              
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }  
+                
+        }
 }
 
 
@@ -174,7 +234,7 @@ const placeOrder = ()=>{
                     <p className="text-sm font-medium uppercase">Delivery Address</p>
                     <div className="relative flex justify-between items-start mt-2">
                         <p className="text-gray-500">
-                            {selectedAddress ? `${selectedAddress.street}, ${selectedAddress.city},${selectedAddress.state}, ${selectedAddress.country}` : "No Address Found" }
+                            {selectedAddress ? `${selectedAddress.street}, ${selectedAddress.city},${selectedAddress.state}, ${selectedAddress.country}, ${selectedAddress.zipCode} Phone : ${selectedAddress.phone}` : "No Address Added" }
                         </p>
                         <button onClick={() => setShowAddress(!showAddress)} className="text-green-600 hover:underline cursor-pointer">
                             Change
@@ -182,22 +242,23 @@ const placeOrder = ()=>{
                         {showAddress && (
                             <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
 
-                                {address.map( (address, index)=>{
+                                {addresses.map( (address, index)=>{
                                     return (
                                         <p key={index} onClick={()=>{
                                             setSelectedAddress(address);
                                             setShowAddress(false)
-                                        }} className="text-gray-500 p-2 hover:bg-gray-100">
+                                        }} className="text-gray-500 p-2 hover:bg-gray-100 cursor-pointer">
 
-                                            {address.street}, {address.city}, {address.state}, {address.country}
+                                            {address.street}, {address.city}, {address.state}, {address.country}, {address.zipCode} <br />
+                                            Phone : {address.phone}
 
                                         </p>
                                     )
                                     
                                 } )}
 
-                                <p onClick={() => navigate("/add-address") } className="text-green-800 text-center cursor-pointer p-2 hover:bg-indigo-500/10">
-                                    Add address
+                                <p onClick={() => navigate("/add-address") } className="text-green-600 font-medium text-center cursor-pointer p-2 hover:bg-indigo-500/10">
+                                    Add Address
                                 </p>
                             </div>
                         )}
@@ -228,7 +289,7 @@ const placeOrder = ()=>{
                     </p>
                 </div>
 
-                <button className="w-full py-3 mt-6 cursor-pointer bg-primary-btn text-white font-medium hover:bg-primary-hover-btn transition">
+                <button onClick={placeOrder} className="w-full py-3 mt-6 cursor-pointer bg-primary-btn text-white font-medium hover:bg-primary-hover-btn transition">
                        {paymentOption === 'COD' ? "Place Order" : "Pay Now"} 
                 </button>
             </div>

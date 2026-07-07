@@ -70,12 +70,14 @@ import quinoa_image from "./images/quinoa_image.png";
 import brown_rice_image from "./images/brown_rice_image.png";
 import barley_image from "./images/barley_image.png";
 import empty_cart from "./images/empty-cart.png";
+import empty_orders from "./images/empty_orders.png";
 
 
 // Exported all the imported images from here 
 export const assets = {
   logo,
   empty_cart,
+  empty_orders,
   search_icon,
   remove_icon,
   arrow_right_icon_colored,

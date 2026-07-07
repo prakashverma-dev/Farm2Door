@@ -11,7 +11,7 @@ const orderRoutes = express.Router();
 // Place user cod order -
 orderRoutes.post("/cod", authUser, placeOrderCOD);
 //to get user order details -
-orderRoutes.get("/user", authUser, getUserOrder);
+orderRoutes.get("/details", authUser, getUserOrder);
 //to get all order details by admin/seller -
 orderRoutes.get("/all-orders", authSeller, getAllOrders);
 

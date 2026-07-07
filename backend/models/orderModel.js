@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema({
       required : true  
     },
     address : {
-        type : String,
+        type : Object,
         required : true,
         ref : "address"
     },

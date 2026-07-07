@@ -109,7 +109,7 @@ function NavBar() {
             />
             <ul className="hidden group-hover:block absolute top-10 right-0 bg-white shadow-md rounded-md border border-gray-200 py-2 w-32 z-40 text-sm">
               <li
-                onClick={() => navigate("/myorder")}
+                onClick={() => navigate("/my-orders")}
                 className="p-1.5 cursor-pointer"
               >
                 My Orders
@@ -209,7 +209,7 @@ function NavBar() {
                 <ul className="group-hover:block absolute top-10 left-0 bg-white shadow-md rounded-md border border-gray-200 py-2 w-32 z-50 text-sm">
               <li
                 onClick={() => {  
-                  navigate("/myorder");
+                  navigate("/my-orders");
                   setOpen(false);
                 } }
                 className="p-1.5 cursor-pointer"

@@ -28,7 +28,14 @@ export const addAddress = async (req, res)=>{
 export const getAddress = async (req, res)=>{
     try {
         const userId = req.userId; //as there will be multiple users address stored.
-        const address = await Address.find({userId}).sort({ createdAt : -1});
+        const addresses = await Address.find({userId}).sort({ createdAt : -1});
+
+        console.log("Address:", addresses)
+        if(addresses.length == 0){
+           return res.status(404).json({message : "No Address Added!", success : false})
+        }
+
+        res.status(200).json({addresses, message : "All Addresses Fetched", success : true})
 
     } catch (error) {
         
