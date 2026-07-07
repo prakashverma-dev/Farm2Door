@@ -80,7 +80,7 @@ export const loginUser = async (req, res)=>{
 
         // Field Validation -
         if(!email || !password){
-            res.status(400).json({message : "All Fields are required", success : false});  
+            res.status(400).json({message : "All Fields are required!", success : false});  
         }
         
         // Fetching User credential with his id with database -
@@ -88,13 +88,13 @@ export const loginUser = async (req, res)=>{
 
         //if user doesnot exist -
         if(!user){
-            return res.status(400).json({message : "Invalid email", success : false})
+            return res.status(400).json({message : "User Not Registered!", success : false})
         }
 
         // if user exist, we match the password -
         const isMatch = await bcryptjs.compare(password, user.password);
          if(!isMatch){
-            return res.status(400).json({message : "Invalid password", success : false})
+            return res.status(400).json({message : "Invalid Password!", success : false})
         }
 
         // Now we will generate the token for authentication next time when he logins -

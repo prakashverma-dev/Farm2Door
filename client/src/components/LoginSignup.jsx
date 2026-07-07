@@ -1,10 +1,11 @@
 import React, { useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import toast from "react-hot-toast"
 
 export default function LoginSignup() {
 
     const [state, setState] = React.useState("login") 
-    const {setShowUserLogin, setUser} = useContext(AppContext)
+    const {setShowUserLogin, setUser, axios, navigate } = useContext(AppContext)
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -12,13 +13,36 @@ export default function LoginSignup() {
         password: ''
     })
 
+    // console.log("Form STATE :", state)
+
     const handleSubmit = async (e) => {
+
         e.preventDefault()
-        console.log(formData);
+      
+        try {
+            const {data} = await axios.post(`/api/user/${state}`, formData);
+            if(data.success){
 
-        setShowUserLogin(false)
-        setUser(true)
+                    toast.success(data.message);
+                    navigate("/");
 
+                    setShowUserLogin(false);
+                    setUser(data.user);          
+                    
+            }
+        } catch (error) {
+
+            if(error.response){
+                toast.error(error.response.data.message);
+            }else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+            } else {
+                        // Something else happened
+                        toast.error(error.message);
+            }
+            
+        }    
     }
 
     const handleChange = (e) => {
@@ -33,7 +57,7 @@ export default function LoginSignup() {
 
              <form onClick={(e)=> e.stopPropagation()} onSubmit={handleSubmit} className="sm:w-[350px] w-90% text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
 
-                <h1 className="text-gray-900 text-3xl mt-10 font-medium">{state === "login" ? "Login" : "Sign up"}</h1>
+                <h1 className="text-gray-900 text-3xl mt-10 font-medium">{state === "login" ? "Login" : "Sign Up"}</h1>
 
                 <p className="text-gray-500 text-sm mt-2">Please sign in to continue</p>
                 {state !== "login" && (
@@ -61,7 +85,7 @@ export default function LoginSignup() {
                     <button className="text-sm" type="reset">Forget password?</button>
                 </div>
                 <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-primary-btn hover:opacity-90 transition-opacity">
-                    {state === "login" ? "Login" : "Sign up"}
+                    {state === "login" ? "Login" : "Create Account"}
                 </button>
                 <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-gray-500 text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-primary-txt hover:underline">click here</a></p>
             </form>

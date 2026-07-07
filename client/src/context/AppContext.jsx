@@ -62,13 +62,44 @@ const AppContextProvider = ({children})=>{
                     
                 }
         }
+
+        //Fetch USer Auth Status -/also get  user data and cart Item -
+        console.log("Cart Items :", cartItems)
+        const checkUserAuth = async ()=>{
+                try {
+                       const {data} = await axios.get("/api/user/is-auth"); 
+
+                       if(data.success){
+                                setUser(data.user);
+                                setCartItems(data.user.cartItems); //To fetch repective user cart Item from database.
+                       }
+
+                } catch (error) {
+     
+                    if (error.response) {
+                        // Backend responded with an error status (400, 401, 500...)
+                        setUser(null);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+                        setUser(null)
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                        setUser(null)
+                    }
+                    
+                }
+        }
+
     
         // Fetch all Products Data -
         const fetchProductsData = async ()=>{
                 // setProducts(dummyProducts)
 
                 try {
-                   const {data} = await axios.get("api/product/list-products");
+                   const {data} = await axios.get("/api/product/list-products");
                    if(data.success){
 
                         // console.log(data.products)
@@ -91,19 +122,56 @@ const AppContextProvider = ({children})=>{
                 }
         }
 
-        // Fetches products at Page Refresh 
+        // Fetches products at Page Refresh at every routes -
         useEffect(()=>{
                 fetchProductsData();
+                
         },[])
 
-        // Checks seller authentication only at /seller route -
+  
+        // Checks seller authentication at /seller route only -
         useEffect(() => {
                 if (location.pathname.startsWith("/seller")) {
                         checkSellerAuth();
+                }else{
+                     checkUserAuth();    //Except seller Route Authe it get executed at every routes.
                 }
         }, [location.pathname]);
 
 
+        // Actually we sending/creating the updated Cart Item from frontend to respective user database -
+        useEffect(()=>{
+                
+                const updateCartItems = async ()=>{
+                        try {
+                              const {data}= await axios.post("/api/cart/update", {
+                                cartItems : cartItems
+                              })  
+
+                              if(!data.success){
+                                toast.error(data.message)
+                              }
+
+
+                        } catch (error) {
+
+                             if (error.response) {         
+                                toast.error(error.response.data.message);
+                              } else if (error.request) {
+                                        toast.error(error.message);
+                        
+                             } else {
+                                        toast.error(error.message);
+                                }  
+                                
+                        }
+                };
+
+                // When user is loggedin then call this -
+                if(user){
+                        updateCartItems();
+                }
+        }, [cartItems])
 
         // Cart Functionality Functions -
 

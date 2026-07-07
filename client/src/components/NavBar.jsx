@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
+import toast from "react-hot-toast";
 
 function NavBar() {
   const [open, setOpen] = React.useState(false);
-  const { user, setUser, navigate, setShowUserLogin, cartCount, searchQuery, setSearchQuery  } = useContext(AppContext);
+  const { user, setUser, navigate, setShowUserLogin, cartCount, searchQuery, setSearchQuery, axios  } = useContext(AppContext);
 
   const [showDropDown, setShowDropDown] = useState(false);
 
@@ -13,11 +14,38 @@ function NavBar() {
 
     if (searchQuery.length > 0){
           navigate("/products")
-
     }
 
   }, [searchQuery])
 
+  const logout = async ()=>{
+
+    try {
+      const {data} = await axios.get("/api/user/logout");
+
+      if(data.success){
+
+        toast.success(data.message);
+        setUser(null);
+        navigate("/")
+
+        setOpen(false);
+
+      }
+
+    } catch (error) {
+                 
+                    if (error.response) {
+                        toast.error(error.response.data.message);
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }
+    }
+  }
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
@@ -88,10 +116,7 @@ function NavBar() {
               </li>
          
               <li
-                onClick={() => {
-                  setUser(null);
-                  navigate("/");
-                }}
+                onClick={logout}
                 className="p-1.5 cursor-pointer"
               >
                 Logout
@@ -193,11 +218,7 @@ function NavBar() {
               </li>
           
               <li
-                onClick={() => {
-                  setUser(null);
-                  setOpen(false);
-                  navigate("/");
-                }}
+                onClick={logout}
                 className="p-1.5 cursor-pointer"
               >
                 Logout
