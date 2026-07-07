@@ -35,7 +35,6 @@ function SellerDashboard() {
                           
                     if (error.response) {
                     // Backend responded with an error status (400, 401, 500...)
-                        // console.log("Backend sent a failure flag 400 or 500, Inside Data :", error.response);
                         toast.error(error.response.data.message);
 
                     } else if (error.request) {

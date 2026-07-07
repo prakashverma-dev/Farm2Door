@@ -48,7 +48,7 @@ export const placeOrderCOD = async (req, res)=>{
 
 
 // ## Check .populate() function -
-// After Order Placed, Order Details for individual user : /api/order/details
+// After Order Placed, Get Order Details By USER, for individual user : /api/order/details
 export const getUserOrder = async (req, res)=>{
     try {
         const userId = req.userId;
@@ -71,15 +71,16 @@ export const getUserOrder = async (req, res)=>{
     }
 }
 
-// get all Orders for admin/seller : /api/order/all-orders
+// Get All Order Details By SELLER, for all users  : 
+// get all Orders for admin/seller : /api/order/all-details
 export const getAllOrders = async (req, res)=>{
     try {
-        const orders = await Orders.find({
+        const allOrders = await Orders.find({
             $or : [{paymentMethod : "COD"}, {isPaid : true}],
 
         }).populate("items.product address").sort({createdAt : -1});
         
-        res.status(200).json({ message:"All Orders details fetched Successfully", orders, success : true });
+        res.status(200).json({ message:"All Orders details fetched Successfully", allOrders, success : true });
         
     } catch (error) {
        
