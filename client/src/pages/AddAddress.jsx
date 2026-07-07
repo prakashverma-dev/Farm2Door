@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 function AddAddress() {
+
+  const {axios, navigate, user} = useContext(AppContext);
+
   const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
@@ -21,10 +26,40 @@ function AddAddress() {
     });
   };
 
-  const submitHanlder = async (e) => {
+
+  const submitHandler = async (e) => {
+
     e.preventDefault();
-    console.log("AddressData:", address);
-  };
+
+    try {
+      const {data} = await axios.post("/api/address/add", {address});
+      if(data.success){
+        toast.success(data.message);
+        navigate("/cart")
+      }
+
+    } catch (error) {
+       if (error.response) {
+                        // Backend responded with an error status (400, 401, 500...)
+                        toast.error(error.response.data.message);
+
+                    } else if (error.request) {
+                        // Request was made but no response received (e.g., server is down) 
+                        toast.error(error.message);
+              
+                    } else {
+                        // Something else happened
+                        toast.error(error.message);
+                    }  
+                }
+    }
+  
+    // as soon as this page loaded, check if user not available redirect to cart page.
+  useEffect(()=>{
+    if(!user){
+      navigate("/cart")
+    }
+  })
 
   return (
     <div className="mt-8 md:mt-12 px-4 sm:px-6 lg:px-8 pb-16">
@@ -37,7 +72,7 @@ function AddAddress() {
             </h2>
 
             <form
-              onSubmit={submitHanlder}
+              onSubmit={submitHandler} 
               className="grid grid-cols-1 md:grid-cols-2 gap-5"
             >
               {/* First Name */}

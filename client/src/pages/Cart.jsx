@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 
 function Cart() {
 
-  const { products, navigate, cartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart }  = useContext(AppContext);
+  const { products, navigate, cartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios }  = useContext(AppContext);
 
   // state to store the products available in cart -
   const [cartData, setCartData] = useState([]);
@@ -12,16 +12,16 @@ function Cart() {
 //   console.log("cartData : ", cartData)
 
   // State to store the address -
-  const [address, setAddress] = useState(dummyAddress)
+  const [address, setAddress] = useState([])
   const [showAddress, setShowAddress] = useState(false)
 
    // State to store selected address -
-  const [selectedAddress, setSelectedAddress] = useState(dummyAddress[0])
+  const [selectedAddress, setSelectedAddress] = useState(null)
 
   // For payment 
   const [paymentOption, setPaymentOption] = useState('COD')
 
-  // To get cart data -
+  //  LEFT SECTION // To get cart data  -
   const getCart =()=>{
 
     let temp = [];
@@ -40,7 +40,27 @@ function Cart() {
     }
   }, [products, cartItems]);
 
-//  Place order -
+
+
+
+//  RIGHT SECTION // TO get User Added address -
+
+const getUserAddress = async ()=>{
+    try {
+        const {data}= await axios.get("/api/address/get");
+        if(data.success){
+            
+        }
+    } catch (error) {
+        
+    }
+}
+
+
+
+
+
+// To Place order -
 const placeOrder = ()=>{
 
 }

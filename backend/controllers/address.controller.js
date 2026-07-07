@@ -13,7 +13,7 @@ export const addAddress = async (req, res)=>{
             userId,
         });
 
-        res.status(201).json({message : "Address added successfully", success : true});
+        res.status(201).json({message : "Address Added!", success : true});
 
         
     } catch (error) {
