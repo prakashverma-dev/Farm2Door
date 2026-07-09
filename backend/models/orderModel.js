@@ -51,4 +51,7 @@ Note  : - ref name must be same as Model name.
 mongoose.model("User", userSchema); // ref: "User" ✅
 mongoose.model("user", userSchema); // ref: "user" ✅
 mongoose.model("Users", userSchema); // ref: "Users" ✅
+
+Note : IF use Reference 'ref' field, if we add type : string; then MongoDB's standard generated IDs for type often changed to Schema.Types.ObjectId instead of String, automatically.
+  
  */

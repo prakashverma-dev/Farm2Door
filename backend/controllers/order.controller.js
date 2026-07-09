@@ -90,7 +90,8 @@ export const placeOrderStripe = async (req, res)=>{
 
 
 
-// ## Check .populate() function -
+// Note : .populate() methdo : When you pass "items.product" to Mongoose, it treats items as a path blueprint, not a specific index. It means: "Loop through every single item inside the array and populate the product field for all of them."If your order has 1 item, it populates that item.If your order has 10 items, it automatically loops and populates all 10 items; Similary 'address' filed get pupulated. JUst Ensure that the address field inside your Order schema has a ref property pointing to the correct collection model 'address' (just like your product has ref: "all_Products").
+
 // After Order Placed, Get Order Details By USER, for individual user : /api/order/details
 export const getUserOrder = async (req, res)=>{
     try {
@@ -116,8 +117,7 @@ export const getUserOrder = async (req, res)=>{
     }
 }
 
-// Get All Order Details By SELLER, for all users  : 
-// get all Orders for admin/seller : /api/order/all-details
+// Get All Order Details By SELLER, for all users  :  /api/order/all-details
 export const getAllOrders = async (req, res)=>{
     try {
         const allOrders = await Orders.find({
