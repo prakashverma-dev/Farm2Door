@@ -13,7 +13,7 @@ export const placeOrderCOD = async (req, res)=>{
         const {items, address} = req.body; 
 
 
-        if(!items || !address){
+        if(items.length === 0 || !address){
              res.status(400).json({ message: "Address and Items are required", success : false });
         }
 
@@ -45,6 +45,49 @@ export const placeOrderCOD = async (req, res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
+// Place Stripe Online order : /api/order/stripe 
+export const placeOrderStripe = async (req, res)=>{
+    try {
+
+        const userId = req.userId; //from authenticated user id attached to request body.
+        const {items, address} = req.body; 
+
+        // const {origin} = req.headers;
+
+        if(items.length === 0 || !address){
+             res.status(400).json({ message: "Address and Items are required", success : false });
+        }
+
+        // Calculating the total amount of the order -
+        let amount = await items.reduce(async (acc, item)=>{
+            const product = await Products.findById(item.product);
+
+            return (await acc) + product.offerPrice * item.quantity;
+        }, 0);
+
+        // Adding tax 2% extra charges -
+        amount += Math.floor((amount * 2)/100);
+
+        // creating the order -
+        await Orders.create({
+            userId,
+            items,
+            address : address,
+            amount,
+            paymentMethod : "COD",
+            isPaid : false 
+        });
+
+        res.status(201).json({ message:"Order Placed Successfully", success : true });
+        
+    }catch (error){
+
+        console.error("Error placing order:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
 
 
 // ## Check .populate() function -
@@ -61,6 +104,8 @@ export const getUserOrder = async (req, res)=>{
         if(orderDetails.length == 0){
             return res.status(404).json({ message: "No Order Placed!", success : false });
         }
+
+        // console.log("ORder Details : ", orderDetails)
         
         res.status(200).json({ message:"User Orders details fetched Successfully", orderDetails , success : true });
 
