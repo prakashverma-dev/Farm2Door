@@ -29,7 +29,7 @@ await connectCloudinary();
 
 //Allowing the cross-origin requests from the React frontend port to backend port, as frontend and backend are on different ports (origins), and if we dont allow frontend origin to backend it will cause the browser's safety features to reject the response when the expected Access-Control-Allow-Origin header is missing.
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://farm2door-app.vercel.app'],
     credentials: true // Include this if you are using cookies or sessions
 }));
 
