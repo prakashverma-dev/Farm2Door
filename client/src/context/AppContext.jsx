@@ -32,8 +32,8 @@ const AppContextProvider = ({children})=>{
         const [sellerInfo, setSellerInfo] = useState(null);
 
         // console.log("CartItems : ", cartItems);
-
-
+        // console.log("Products : ", products);
+        
         // Fetch Seller Status, Is seller Authorized or not means seller loggined or not -
         const checkSellerAuth = async ()=>{
                 try {
@@ -64,7 +64,7 @@ const AppContextProvider = ({children})=>{
         }
 
         //Fetch USer Auth Status -/also get  user data and cart Item -
-        console.log("Cart Items :", cartItems)
+        
         const checkUserAuth = async ()=>{
                 try {
                        const {data} = await axios.get("/api/user/is-auth"); 
@@ -107,7 +107,11 @@ const AppContextProvider = ({children})=>{
                    }
                     
                 } catch (error) {
-                       if (error.response) {
+
+                        setProducts(dummyProducts)
+
+                   
+                        if (error.response) {
                         // Backend responded with an error status (400, 401, 500...)
                         toast.error(error.response.data.message);
 
@@ -147,7 +151,7 @@ const AppContextProvider = ({children})=>{
                               const {data}= await axios.post("/api/cart/update", {
                                 cartItems : cartItems
                               })  
-
+                              
                               if(!data.success){
                                 toast.error(data.message)
                               }
@@ -172,6 +176,8 @@ const AppContextProvider = ({children})=>{
                         updateCartItems();
                 }
         }, [cartItems])
+
+
 
         // Cart Functionality Functions -
 
@@ -215,7 +221,9 @@ const AppContextProvider = ({children})=>{
                 let totalAmount = 0
 
                 for(const items in cartItems){
+      
                         let itemInfo = products.find(item=> item._id === items);
+                        
                         if(cartItems[items] > 0){
                                 totalAmount += cartItems[items] * itemInfo.offerPrice;
 
@@ -223,6 +231,7 @@ const AppContextProvider = ({children})=>{
                 }
 
                 return Math.floor(totalAmount*100) / 100;
+
         };
 
         // Remove product from cart

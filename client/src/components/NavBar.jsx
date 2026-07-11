@@ -57,7 +57,12 @@ function NavBar() {
       <div className="hidden sm:flex items-center gap-8">
         <Link to={"/"}>Home</Link>
         <Link to={"/products"}>Products</Link>
-        <Link to={"/contact"}>Contact</Link>
+        <Link
+  to="/seller"
+  className="flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded-lg transition font-medium shadow-sm"
+>
+  📊 Admin Dashboard
+</Link>
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input onChange={(e)=> setSearchQuery(e.target.value)}
@@ -121,12 +126,7 @@ function NavBar() {
               >
                 Logout
               </li> 
-                   <li
-                onClick={() => navigate("/seller")}
-                className="p-1.5 cursor-pointer"
-              >
-                Seller Access
-              </li>
+      
             </ul>
           </div>
         ) : (
@@ -193,8 +193,12 @@ function NavBar() {
         <Link onClick={() => setOpen(false)} to={"/products"} >
           Products
         </Link>
-        <Link onClick={() => setOpen(false)} to={"/contact"} >
-          Contact
+
+        <Link
+          to="/seller"
+          className="flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-2 py-2 rounded-lg transition font-medium shadow-sm"
+        >
+          📊 Admin 
         </Link>
         {user ? (
           <div className="relative group" >
@@ -223,16 +227,7 @@ function NavBar() {
               >
                 Logout
               </li>
-                  <li
-                onClick={() => {
-                  
-                  navigate("/seller");
-                  setOpen(false);
-                }}
-                className="p-1.5 cursor-pointer"
-              >
-                Seller Access
-              </li>  
+  
             </ul>
             ) }
           
@@ -241,7 +236,7 @@ function NavBar() {
              
             setOpen(false);
             setShowUserLogin(true);
-            }} className="cursor-pointer px-6 py-2 mt-2 bg-primary-btn hover:bg-primary-hover-btn transition text-white rounded-full text-sm">
+            }} className="cursor-pointer px-6 py-2 bg-primary-btn hover:bg-primary-hover-btn transition text-white rounded-full text-sm">
           Login
         </button>)}
       

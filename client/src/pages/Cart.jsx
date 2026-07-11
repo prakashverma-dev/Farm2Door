@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { assets, categories, dummyAddress } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
+import useRazorpay from '../customhook/useRazorpay.jsx';
+
+
+
 
 function Cart() {
 
@@ -19,8 +23,8 @@ function Cart() {
   // For payment 
   const [paymentOption, setPaymentOption] = useState('COD')
 
+  const { handleRazorpay } = useRazorpay();
 
-  
 
   //  LEFT SECTION // To get cart data  -
   const getCart =()=>{
@@ -44,7 +48,7 @@ function Cart() {
 
 
 
-// IGHT SECTION // TO get User Added address -
+//  RIGHT SECTION // TO get User Added address -
 
 const getUserAddress = async ()=>{
     try {
@@ -103,9 +107,30 @@ const placeOrder = async ()=>{
                 if(data.success){
                     toast.success(data.message);
                     setCartItems({});
-                    navigate("/my-orders")
+                    navigate("/order-success")
                 }
 
+            }else{
+
+                // Means online Payment -
+                const {data} = await axios.post("/api/order/create-razorpay-order",{
+                    items : cartData.map((item)=>({
+                        product : item._id,
+                        quantity : item.quantity
+                    })),
+                    address : selectedAddress
+                });
+
+                if(data.success){
+                    // After sucessfull order initiation, we recive the rajorpay order details to proceed, then we open the RAZOR Pay, with providing it options -
+                    
+                    // Show Razorpay payment popup
+                    console.log("RazorPayOrderDetails : ", data.razorpayOrder);
+
+
+                    handleRazorpay(data.razorpayOrder);
+
+                }
             }
 
         } catch (error) {
@@ -289,7 +314,11 @@ const placeOrder = async ()=>{
                     </p>
                 </div>
 
-                <button onClick={placeOrder} className="w-full py-3 mt-6 cursor-pointer bg-primary-btn text-white font-medium hover:bg-primary-hover-btn transition">
+                <button onClick={placeOrder} className={`w-full py-3 mt-6 cursor-pointer text-white font-medium transition ${
+                        paymentOption === "COD"
+                            ? "bg-primary-btn hover:bg-primary-hover-btn"
+                            : "bg-green-600 hover:bg-green-700"
+                        }`}>
                        {paymentOption === 'COD' ? "Place Order" : "Pay Now"} 
                 </button>
             </div>

@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 
 function MyOrder() {
   const [myOrders, setMyOrders] = useState([]);
-  const {axios, user} = useContext(AppContext);
+  const {axios, user, setCartItems, navigate} = useContext(AppContext);
 
   const fetchOrderDetails = async () => {
     // setMyOrders(dummyOrders);
     try {
       const {data} = await axios.get("/api/order/details");
+
       if(data.success){
           setMyOrders(data.orderDetails);
       }
@@ -39,123 +40,201 @@ function MyOrder() {
     }
   }, [user]);
 
-  return (
-    <div className="mt-8 md:mt-12 pb-16 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl md:text-3xl font-semibold mb-8">My Orders</h1>
+  // Buy again -
+  const buyAgain = (order) => {
 
-      {myOrders.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-10">
-            <img
-              src={assets.empty_orders}
-              alt="No Orders"
-              className="w-52 mb-6"
-            />
+    const newCart = {};
 
-            <h2 className="text-2xl font-semibold text-gray-700">
-              No Orders Placed
-            </h2>
-             <p className="mt-2 text-gray-500 text-center">
+    order.items.forEach(item => {
+        newCart[item.product._id] = item.quantity;
+    });
+
+    setCartItems(newCart);
+
+    navigate("/cart");
+    scrollTo(0, 0);
+
+};
+
+
+
+
+return (
+  <div className="mt-8 md:mt-12 pb-16 px-4 sm:px-6 lg:px-8">
+    <h1 className="text-2xl md:text-3xl font-semibold mb-8">
+      My Orders
+    </h1>
+
+    {myOrders.length === 0 ? (
+      <div className="flex flex-col items-center justify-center py-10">
+        <img
+          src={assets.empty_orders}
+          alt="No Orders"
+          className="w-52 mb-6"
+        />
+
+        <h2 className="text-2xl font-semibold text-gray-700">
+          No Orders Placed
+        </h2>
+
+        <p className="mt-2 text-center text-gray-500">
           Looks like you haven't placed any orders yet.
-            </p>
-            <p className="mt-2 text-gray-500">
-              Start shopping to see your orders here.
-            </p>
+        </p>
 
-            <Link
-              to="/products"
-              className="mt-6 bg-primary-btn text-white px-6 py-3 rounded-lg hover:bg-primary-hover-btn"
-            >
-              Continue Shopping..
-            </Link>
-          </div>
-      ) : (
+        <p className="text-gray-500">
+          Start shopping to see your orders here.
+        </p>
 
-        myOrders.map((order, index) => (
-          <div
-            key={index}
-            className="max-w-5xl mx-auto bg-white border border-gray-200 rounded-xl shadow-sm mb-8 overflow-hidden"
-          >
-            {/* Order Header */}
-            <div className="p-4 md:p-6 border-b border-gray-200">
-              <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-between gap-3 text-sm md:text-base font-medium">
-                <p>
-                  <span className="text-gray-500">Order ID:</span>{" "}
-                  <span className="break-all">{order._id}</span>
+        <Link
+          to="/products"
+          className="mt-6 bg-primary-btn hover:bg-primary-hover-btn text-white px-6 py-3 rounded-lg transition"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    ) : (
+      myOrders.map((order) => (
+        <div
+          key={order._id}
+          className="max-w-5xl mx-auto rounded-xl border border-gray-200 shadow-sm bg-white overflow-hidden mb-8"
+        >
+          {/* Amazon Style Header */}
+          <div className="bg-gray-100 border-b border-gray-200 px-6 py-5">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
+
+              {/* Order Date */}
+              <div>
+                <p className="text-xs uppercase font-semibold text-gray-500">
+                  Order Placed
                 </p>
 
-                <p className="me-16">
-                  <span className="text-gray-500">Payment:</span>{" "}
+                <p className="font-semibold text-gray-800">
+                  {new Date(order.createdAt).toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
+
+              {/* Total */}
+              <div>
+                <p className="text-xs uppercase font-semibold text-gray-500">
+                  Total Amount
+                </p>
+
+                <p className="text-xl font-bold text-green-600">
+                  ₹{order.amount}
+                </p>
+              </div>
+
+              {/* Payment */}
+              <div>
+                <p className="text-xs uppercase font-semibold text-gray-500">
+                  Payment
+                </p>
+
+                <p className="font-semibold text-gray-800">
                   {order.paymentMethod}
                 </p>
+              </div>
 
-                <p>
-                  <span className="text-gray-500">Total:</span> ₹{order.amount}
+              {/* Status */}
+              <div>
+                <p className="text-xs uppercase font-semibold text-gray-500">
+                  Status
+                </p>
+
+                <span
+                  className={`inline-flex mt-1 px-3 py-1 rounded-full text-sm font-medium ${
+                    order.status === "Delivered"
+                      ? "bg-green-100 text-green-700"
+                      : order.status === "Cancelled"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}
+                >
+                  ● {order.status}
+                </span>
+              </div>
+
+              {/* Order ID */}
+              <div>
+                <p className="text-xs uppercase font-semibold text-gray-500">
+                  Order #
+                </p>
+
+                <p className="font-semibold text-gray-800">
+                  #{order._id.slice(-8).toUpperCase()}
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* Order Items */}
-            {order.items.map((item, itemIndex) => (
-              <div
-                key={itemIndex}
-                className={`flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 p-4 md:p-6 ${
-                  itemIndex !== order.items.length - 1
-                    ? "border-b border-gray-200"
-                    : ""
-                }`}
-              >
-                {/* Left Section */}
-                <div className="flex items-center gap-4">
-                  <img
-                    src={item.product.image[0]}
-                    alt={item.product.name}
-                    className="w-20 h-20 object-cover rounded-md border"
-                  />
+          {/* Products */}
+          {order.items.map((item) => (
+            <div
+              key={item.product._id}
+              className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 p-5 border-b last:border-b-0"
+            >
+              {/* Left */}
+              <div className="flex items-center gap-4">
+                <img
+                  src={item.product.image[0]}
+                  alt={item.product.name}
+                  className="w-24 h-24 rounded-lg border object-cover"
+                />
 
-                  <div>
-                    <h2 className="text-lg md:text-xl font-semibold">
-                      {item.product.name}
-                    </h2>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    {item.product.name}
+                  </h2>
 
-                    <p className="text-gray-500 text-sm md:text-base">
-                      Category : {item.product.category}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Middle Section */}
-                <div className="text-sm md:text-base font-medium space-y-1">
-                  <p>
-                    <span className="text-gray-500">Quantity:</span>{" "}
-                    {item.quantity}
+                  <p className="text-gray-500 mt-1">
+                    Category : {item.product.category}
                   </p>
 
-                  <p>
-                    <span className="text-gray-500">Status:</span> {order.status}
+                  <p className="text-gray-500">
+                    Quantity : {item.quantity}
                   </p>
-
-                  <p>
-                    <span className="text-gray-500">Date:</span>{" "}
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-
-                {/* Right Section */}
-                <div className="text-lg md:text-xl font-semibold text-green-600">
-                  ₹{item.product.offerPrice * item.quantity}
                 </div>
               </div>
-            ))}
+
+              {/* Right */}
+              <div className="text-right">
+                <p className="text-sm text-gray-500">
+                  Item Price
+                </p>
+
+                <p className="text-2xl font-bold text-green-600">
+                  ₹{item.product.offerPrice * item.quantity}
+                </p>
+              </div>
+            </div>
+          ))}
+
+          {/* Footer */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 bg-gray-50">
+            <p className="text-sm text-gray-500">
+              {order.items.length} Item
+              {order.items.length > 1 ? "s" : ""}
+            </p>
+
+            <div className="flex gap-3">
+              {/* <button className="border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-lg transition">
+                View Details
+              </button> */}
+
+              <button onClick={()=> buyAgain(order)} className="bg-primary-btn hover:bg-primary-hover-btn text-white px-4 py-2 rounded-lg transition">
+                Buy Again
+              </button>
+            </div>
           </div>
+        </div>
       ))
-      )
-      
-      }
-
-
-
-    </div>
-  );
+    )}
+  </div>
+);
 }
 
 export default MyOrder;

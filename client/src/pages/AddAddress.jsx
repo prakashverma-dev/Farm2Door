@@ -32,11 +32,11 @@ function AddAddress() {
     e.preventDefault();
 
     try {
-      const {data} = await axios.post("/api/address/add", {address});
-      if(data.success){
-        toast.success(data.message);
-        navigate("/cart")
-      }
+          const {data} = await axios.post("/api/address/add", {address});
+          if(data.success){
+            toast.success(data.message);
+            navigate("/cart")
+          }
 
     } catch (error) {
        if (error.response) {
@@ -55,11 +55,11 @@ function AddAddress() {
     }
   
     // as soon as this page loaded, check if user not available redirect to cart page.
-  useEffect(()=>{
-    if(!user){
-      navigate("/cart")
-    }
-  })
+  // useEffect(()=>{
+  //   if(!user){
+  //     navigate("/cart")
+  //   }
+  // },[])
 
   return (
     <div className="mt-8 md:mt-12 px-4 sm:px-6 lg:px-8 pb-16">

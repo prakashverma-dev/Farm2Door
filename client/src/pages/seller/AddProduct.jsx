@@ -17,17 +17,18 @@ function AddProduct() {
 
   const {axios} = useContext(AppContext);
 
+
   const handleSubmit = async (e)=>{
-        
-        
+ 
         try {
 
             e.preventDefault();
             setLoading(true);
 
+            //Preparing the FormData Object to send to backend -
             //By using FormData() Object, When passed to a network request body, it automatically encodes the data using the "multipart/form-data" encoding type i.e sends it as multipart/form-data bydefault without making it, making it the standard choice for uploading files.
             // By Default normal data send vai form goes in Content-Type: application/json data.
-            
+
             const productObj = new FormData();
         
             // Note : Multer expect formData object which is set as multipart/form-data not application/json as Multer only parses multipart/form-data.
@@ -43,7 +44,7 @@ function AddProduct() {
                 productObj.append("images", files[i]);
             }
 
-            // console.log("ProductObj:", Array.from(productObj)) 
+            // console.log("ProductObj:", Array.from(productObj));
 
             const {data} = await axios.post("/api/product/add-product", productObj);
 
@@ -119,7 +120,7 @@ function AddProduct() {
                 </div>
                 <div className="flex flex-col gap-1 max-w-md">
                     <label className="text-base font-medium" htmlFor="product-description">Product Description</label>
-                    <textarea onChange={(e)=> setDescription(e.target.value) }  value={description} id="product-description" rows={4} className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none" placeholder="Type here" required></textarea>
+                    <textarea onChange={(e)=> setDescription(e.target.value)}  value={description} id="product-description" rows={4} className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none" placeholder="Type here" required></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-1">
                     <label  className="text-base font-medium" htmlFor="category">Category</label>

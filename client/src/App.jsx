@@ -19,6 +19,7 @@ import AddProduct from './pages/seller/AddProduct'
 import ProductList from './pages/seller/ProductList'
 import Orders from './pages/seller/Orders'
 import SellerDashboard from './pages/seller/SellerDashboard.jsx'
+import OrderSuccess from './pages/OrderSuccess.jsx'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path='/my-orders' element={<MyOrder/> }  />
         <Route path='/contact' element={<Contact />}  /> 
         <Route path='/add-address' element={<AddAddress />}  />
+        <Route path='/order-success' element={<OrderSuccess />}  />
 
          {/* For seller Routing - */}
         <Route path='/seller' element={isSeller ? <SellerDashboard/> : <SellerLogin/>}>
