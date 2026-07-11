@@ -4,10 +4,11 @@ import multer from "multer";
 
 // NOTE: Multer will not process any form which is not multipart(enctype="multipart/form-data").
 
+const uploadDir = "/tmp";
 
 const storage =  multer.diskStorage({
 
-        destination : "uploads",
+        destination : uploadDir,
         filename : (req, file, cb) => {
             return cb(null, `${Date.now()} - ${file.originalname}`);
         }
