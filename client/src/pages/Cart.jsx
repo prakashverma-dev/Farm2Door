@@ -125,7 +125,7 @@ const placeOrder = async ()=>{
                     // After sucessfull order initiation, we recive the rajorpay order details to proceed, then we open the RAZOR Pay, with providing it options -
                     
                     // Show Razorpay payment popup
-                    console.log("RazorPayOrderDetails : ", data.razorpayOrder);
+                    // console.log("RazorPayOrderDetails : ", data.razorpayOrder);
 
 
                     handleRazorpay(data.razorpayOrder);

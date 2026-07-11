@@ -26,7 +26,7 @@ function useRazorpay() {
                 // To verify Payment -
                 handler: async function (response) {
 
-                     console.log("Payment Details :", response); // We get RazorPay Payment details
+                    //  console.log("Payment Details :", response); // We get RazorPay Payment details
                             // after receiving the payment details we can send for verification via again API call here - Inside Response we recived three parameters -
                             // response.razorpay_payment_id
                             // response.razorpay_order_id

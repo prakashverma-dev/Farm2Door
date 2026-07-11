@@ -17,12 +17,12 @@ Farm2Door is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) online g
 
 ## 🚀 Live Demo
 
-🌐 Live Website: https://farm2door-app.netlify.app
+🌐 Live Website: https://farm2door-app.vercel.app
 
 ### Quick Links
 
-- Frontend: https://farm2door-app.netlify.app
-<!-- - Backend API: https://your-backend-url.onrender.com -->
+- Frontend: https://farm2door-app.vercel.app
+- Backend API: https://farm2-door-ivory.vercel.app
 
 ---
 
