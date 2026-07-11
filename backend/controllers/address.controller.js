@@ -30,7 +30,7 @@ export const getAddress = async (req, res)=>{
         const userId = req.userId; //as there will be multiple users address stored.
         const addresses = await Address.find({userId}).sort({ createdAt : -1});
 
-        console.log("Address:", addresses)
+        // console.log("Address:", addresses)
         if(addresses.length == 0){
            return res.status(404).json({message : "No Address Added!", success : false})
         }

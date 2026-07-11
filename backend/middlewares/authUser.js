@@ -5,8 +5,9 @@ export const authUser = (req, res, next)=>{
     try {
         const {usertoken} = req.cookies;
 
+        // If userToken is not found, means user is unauthorized, Make him to loggin or signup first -
         if(!usertoken){
-           return res.status(401).json({message : "Unauthorized User, token not found!", success : false});
+           return res.status(401).json({message : "Please Login to Proceed!", success : false});
         }
 
         const decoded = jsonwebtoken.verify(usertoken, process.env.JWT_SECRET);

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { type } from "node:os";
 import productRoutes from "../routes/product.routes.js";
 
@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         ref : "login_signup_users" //This must match exaclty model name of User Model.
     },
     items : [{
-        product : { type : String, required : true, ref : "all_Products" },
+        product : { type : mongoose.Schema.Types.ObjectId , required : true, ref : "all_Products" },
         quantity : { type : Number, required : true},
     }],
     amount : {
@@ -23,21 +23,46 @@ const orderSchema = new mongoose.Schema({
         required : true,
         ref : "address"
     },
-    status : {
-        type : String,
-        required : true,
-        default : "Order Placed"
-    },
     paymentMethod : {
         type : String,
         enum: ["COD", "Online"], 
         required : true,
+    },
+    status : {
+        type : String,
+        enum: ["Pending", "Paid", "Failed"],
+        default: "Pending",
+        required : true,
+    },
+    deliveryStatus : {
+        type : String,
+        enum: ["Order Placed", "Proccesing", "Shipped", "Delivered", "Cancelled", "Pending",""],
+        default: ""
     },
     isPaid : {
         type : Boolean,
         required : true,
         default : false
     },
+    
+    //Razorpay Fields-
+    razorpayOrderId :{
+        type : String,
+        default: ""
+    },
+
+    razorpayPaymentId: {
+        type: String,
+        default: ""
+    },
+
+    razorpaySignature: {
+        type: String,
+        default: ""
+    },
+
+
+
 }, {timestamps : true});
 
 // Order Model -
@@ -52,6 +77,6 @@ mongoose.model("User", userSchema); // ref: "User" ✅
 mongoose.model("user", userSchema); // ref: "user" ✅
 mongoose.model("Users", userSchema); // ref: "Users" ✅
 
-Note : IF use Reference 'ref' field, if we add type : string; then MongoDB's standard generated IDs for type often changed to Schema.Types.ObjectId instead of String, automatically.
-  
+Note : IF use Reference 'ref' field, if we add type : string; then MongoDB's standard generated IDs for type often changed to Schema.Types.ObjectId instead of String, automatically.  mongoose.Schema.Types.ObjectId
+
  */

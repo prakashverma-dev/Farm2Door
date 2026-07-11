@@ -18,6 +18,7 @@ We have used 'module' i.e "type": "module" for loading expressjs backages rather
 >npm i multer  -> to make possible to upload any media on backend.
 >npm i cloudinary   -> Here we will upload our images
 >npm i stripe    -> we will use stripe for payment gateway.
+>npm install razorpay --> For RazorPAy payement gateway.
 
 
 

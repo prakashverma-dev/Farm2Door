@@ -15,7 +15,7 @@ export const addProduct = async (req, res)=>{
         // console.log("Req.files :", req.files)
         // console.log("Req.body :", req.body)
 
-        const {name, description, price, offerPrice, category } = req.body;
+        let {name, description, price, offerPrice, category } = req.body;
 
         //Multer handles form-file data in req.files object, when only passed by enctype="multipart/form-data"- 
         const files = req.files;
@@ -45,6 +45,15 @@ export const addProduct = async (req, res)=>{
 
                 return result.secure_url;
         }));
+
+
+        //If Description coming as string, we converting into Array before DB save -
+        if (typeof description === "string") {
+
+           description = description.split(/[\r\n,]+/).map(item => item.trim()).filter(Boolean);
+        }
+
+        // console.log("descriptionArry :", description )
 
 
         await Products.create({

@@ -1,9 +1,13 @@
 
+
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import dotenv from 'dotenv'
 import { connectDB } from './config/connectMongoDb.js';
+
+import dotenv from 'dotenv'
+dotenv.config(); // Must execute before importing local routes/controllers
+
 import userRoutes from './routes/user.routes.js';
 import sellerRoutes from './routes/seller.routes.js';
 import { connectCloudinary } from './config/connectCloudinary.js';
@@ -11,7 +15,7 @@ import productRoutes from './routes/product.routes.js';
 import cartRoutes from './routes/cart.routes.js';
 import orderRoutes from './routes/order.routes.js';
 import addressRoutes from './routes/address.routes.js';
-dotenv.config();
+
 
 
 const app = express();
