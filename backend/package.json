@@ -20,9 +20,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
-  },
+  "dev": "nodemon --env-file=.env --env-file=.env.development index.js",
+  "start": "node --env-file=.env --env-file=.env.production index.js"
+},
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
