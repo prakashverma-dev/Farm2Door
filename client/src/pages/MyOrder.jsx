@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function MyOrder() {
   const [myOrders, setMyOrders] = useState([]);
-  const {axios, user, setCartItems, navigate} = useContext(AppContext);
+  const {axios, user, setCartItems,cartItems, navigate} = useContext(AppContext);
 
   const fetchOrderDetails = async () => {
     // setMyOrders(dummyOrders);
@@ -41,7 +41,7 @@ function MyOrder() {
   }, [user]);
 
   // Buy again -
-  const buyAgain = (order) => {
+const buyAgain = (order) => {
 
     const newCart = {};
 
@@ -54,7 +54,10 @@ function MyOrder() {
     navigate("/cart");
     scrollTo(0, 0);
 
+
 };
+
+
 
 
 

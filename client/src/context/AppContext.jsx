@@ -31,7 +31,7 @@ const AppContextProvider = ({children})=>{
         const [searchQuery, setSearchQuery] = useState("");
         const [sellerInfo, setSellerInfo] = useState(null);
 
-        // console.log("CartItems : ", cartItems);
+        console.log("CartItems : ", cartItems);
         // console.log("Products : ", products);
         
         // Fetch Seller Status, Is seller Authorized or not means seller loggined or not -
@@ -108,8 +108,7 @@ const AppContextProvider = ({children})=>{
                     
                 } catch (error) {
 
-                        setProducts(dummyProducts)
-
+                        // setProducts(dummyProducts)
                    
                         if (error.response) {
                         // Backend responded with an error status (400, 401, 500...)
@@ -144,9 +143,7 @@ const AppContextProvider = ({children})=>{
 
 
         // Actually we sending/creating the updated Cart Item from frontend to respective user database -
-        useEffect(()=>{
-                
-                const updateCartItems = async ()=>{
+        const updateCartItems = async ()=>{
                         try {
                               const {data}= await axios.post("/api/cart/update", {
                                 cartItems : cartItems
@@ -171,6 +168,9 @@ const AppContextProvider = ({children})=>{
                         }
                 };
 
+
+        useEffect(()=>{
+                
                 // When user is loggedin then call this -
                 if(user){
                         updateCartItems();
