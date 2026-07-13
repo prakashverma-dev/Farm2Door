@@ -76,7 +76,8 @@ const AppContextProvider = ({children})=>{
                 
         },[])
 
-        const updateCartItems = async ()=>{
+        // Actually we sending/creating the updated Cart Item from frontend to respective user database -
+        const cartItemUpdate = async ()=>{
                         try {
                               const {data}= await axios.post("/api/cart/update", {
                                 cartItems : cartItems
@@ -105,7 +106,7 @@ const AppContextProvider = ({children})=>{
         useEffect(()=>{                
                 // When user is loggedin then call this -
                 if(user){
-                        updateCartItems();
+                        cartItemUpdate();
                 }
         }, [cartItems]) 
 
@@ -179,7 +180,7 @@ const AppContextProvider = ({children})=>{
         }, [location.pathname]);
 
 
-        // Actually we sending/creating the updated Cart Item from frontend to respective user database -
+
        
 
 
@@ -263,7 +264,7 @@ const AppContextProvider = ({children})=>{
         }
 
 
-        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo  };
+        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo, cartItemUpdate  };
 
         return (
                 <AppContext.Provider value={value}>
