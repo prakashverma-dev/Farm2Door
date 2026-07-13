@@ -9,7 +9,7 @@ import useRazorpay from '../customhook/useRazorpay.jsx';
 
 function Cart() {
 
-  const { products, navigate, cartItems, setCartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios, use, cartItemUpdate }  = useContext(AppContext);
+  const { products, navigate, cartItems, setCartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios, user, cartItemUpdate }  = useContext(AppContext);
 
   // state to store the products available in cart -
   const [cartData, setCartData] = useState([]);
