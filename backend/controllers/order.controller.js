@@ -43,9 +43,8 @@ export const placeOrderCOD = async (req, res)=>{
             isPaid : false
         });
 
-        // clearning CartItems Object from user section, after successfull order -
-        await User.findByIdAndUpdate(
-            userId,
+        // cleaning CartItems Object from user section, after successfull order -
+        await User.findByIdAndUpdate(userId,
             {
                 cartItems: {}
             }
@@ -122,6 +121,7 @@ export const placeOrderRazorPay = async (req, res)=>{
 export const verifyRazorPayPayment = async (req, res)=>{
     try {
 
+        const userId = req.userId; //from authenticated user id attached to request body.
         const {razorpay_order_id, razorpay_payment_id, razorpay_signature, paymentFailed } = req.body;
 
         // If payment failed, we update the status from pending to failed -
@@ -157,6 +157,13 @@ export const verifyRazorPayPayment = async (req, res)=>{
                     razorpaySignature : razorpay_signature
                 },
                 {new : true}
+            );
+
+            // cleaning CartItems Object from user section, after successfull order -
+            await User.findByIdAndUpdate(userId,
+                {
+                    cartItems: {}
+                }
             );
 
             return  res.status(200).json({ message:"Payment Successfull!", order : order, success : true });
