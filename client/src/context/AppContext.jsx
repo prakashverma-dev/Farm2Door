@@ -31,8 +31,10 @@ const AppContextProvider = ({children})=>{
         const [searchQuery, setSearchQuery] = useState("");
         const [sellerInfo, setSellerInfo] = useState(null);
 
-        // console.log("CartItems : ", cartItems);
         // console.log("Products : ", products);
+        //  useEffect(() => {
+        //         console.log("CartItemsId :", cartItems);
+        // }, [cartItems]); 
 
 
     
@@ -180,16 +182,6 @@ const AppContextProvider = ({children})=>{
         }, [location.pathname]);
 
 
-
-       
-
-
-
-        useEffect(() => {
-                console.log("CartItemsId :", cartItems);
-        }, [cartItems]); 
-
-
         // Cart Functionality Functions -
 
         // Add to product to cart -
@@ -264,7 +256,7 @@ const AppContextProvider = ({children})=>{
         }
 
 
-        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo, cartItemUpdate  };
+        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo};
 
         return (
                 <AppContext.Provider value={value}>

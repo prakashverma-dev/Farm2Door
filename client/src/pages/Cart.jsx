@@ -13,7 +13,6 @@ function Cart() {
 
   // state to store the products available in cart -
   const [cartData, setCartData] = useState([]);
-  console.log("cartData : ", cartData) 
 
   // State to store all addresses added by user -
   const [addresses, setAddresses] = useState([])

@@ -1,3 +1,6 @@
+
+import { FaGithub } from "react-icons/fa";
+
 export default function Footer() {
      const linkSections = [
         {
@@ -42,10 +45,22 @@ export default function Footer() {
                     ))}
                 </div>
             </div>
-            <p className="py-4 text-center text-sm md:text-base text-gray-500/80">
-                {/* © 2026 Farm2Door. All rights reserved. */}
-                Copyright 2026 © <a href="https://github.com/prakashverma-dev/Farm2Door">Prakash Kumar Verma.</a> All Right Reserved.
-            </p>
+  <p className="py-4 text-center text-sm md:text-base text-gray-500/80">
+  Copyright 2026 ©{" "}
+  <a
+    href="https://github.com/prakashverma-dev"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group inline-flex items-center gap-2 font-semibold transition-all duration-300 hover:scale-105"
+  >
+    <FaGithub className="text-lg transition-transform duration-300 group-hover:rotate-12 group-hover:text-cyan-400" />
+
+    <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-[length:200%_100%] bg-left bg-clip-text text-gray-300 transition-all duration-500 group-hover:bg-right group-hover:text-transparent">
+      Prakash Kumar Verma
+    </span>
+  </a>
+  . All Rights Reserved.
+</p>
         </div>
     );
 };
