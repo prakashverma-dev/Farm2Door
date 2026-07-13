@@ -64,8 +64,6 @@ app.get("/", (req, res) => {
     res.send("Welcome to farm2Door-app backend!")
 })
 
-console.log("Production Check :", process.env.NODE_ENV === "production") // false
-console.log("Production Check2 :", process.env.NODE_ENV === "production" ? "none" : "strict") //strict
 
 // To listen the server
 const PORT = process.env.PORT || 4000;

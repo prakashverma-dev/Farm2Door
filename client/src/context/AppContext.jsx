@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true ;
 // Base URL of Backend adding here -
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
-console.log("Backend URL :", import.meta.env.VITE_BACKEND_URL)
+// console.log("Backend URL :", import.meta.env.VITE_BACKEND_URL)
 
 
 
