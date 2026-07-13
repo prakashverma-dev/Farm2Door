@@ -7,7 +7,7 @@ function useRazorpay() {
 
      const { navigate, setCartItems, axios } = useContext(AppContext);
 
-     const handleRazorpay = async (razorpayOrder, setCartData) => {
+     const handleRazorpay = async (razorpayOrder) => {
 
         const options = {
 
@@ -37,7 +37,6 @@ function useRazorpay() {
                         if (data.success) {
 
                             toast.success(data.message);
-                            setCartData([]);
                             setCartItems({});
                             navigate("/order-success");
                         }          

@@ -3,6 +3,7 @@ import {razorpayInstance} from "../config/razorpay.js";
 import Orders from "../models/orderModel.js";
 import Products from "../models/productModel.js";
 import crypto from 'crypto';
+import User from "../models/userModel.js";
 
 
 
@@ -15,7 +16,7 @@ export const placeOrderCOD = async (req, res)=>{
         const {items, address} = req.body; 
 
 
-        if(items.length === 0 || !address){
+        if(!items || items.length === 0 || !address){
              res.status(400).json({ message: "Address and Items are required", success : false });
         }
 
@@ -41,6 +42,15 @@ export const placeOrderCOD = async (req, res)=>{
             deliveryStatus : "Order Placed",
             isPaid : false
         });
+
+        // clearning CartItems Object from user section, after successfull order -
+        await User.findByIdAndUpdate(
+            userId,
+            {
+                cartItems: {}
+            }
+        );
+
 
         res.status(201).json({ message:"Order Placed Successfully", success : true });
         

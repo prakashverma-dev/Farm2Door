@@ -9,7 +9,7 @@ import useRazorpay from '../customhook/useRazorpay.jsx';
 
 function Cart() {
 
-  const { products, navigate, cartItems, setCartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios, user, cartItemUpdate }  = useContext(AppContext);
+  const { products, navigate, cartItems, setCartItems, updateCartItem, cartCount, totalCartAmount, removeFromCart, axios, user}  = useContext(AppContext);
 
   // state to store the products available in cart -
   const [cartData, setCartData] = useState([]);
@@ -106,9 +106,7 @@ const placeOrder = async ()=>{
 
                 if(data.success){
                     toast.success(data.message);
-                    setCartData([]);
                     setCartItems({});
-                    await cartItemUpdate();
                     navigate("/order-success")
                 }
 
@@ -130,7 +128,7 @@ const placeOrder = async ()=>{
                     // console.log("RazorPayOrderDetails : ", data.razorpayOrder);
 
 
-                    handleRazorpay(data.razorpayOrder, setCartData);
+                    handleRazorpay(data.razorpayOrder);
 
                 }
             }
