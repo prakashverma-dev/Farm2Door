@@ -106,6 +106,7 @@ const placeOrder = async ()=>{
 
                 if(data.success){
                     toast.success(data.message);
+                    setCartData([]);
                     setCartItems({});
                     navigate("/order-success")
                 }
@@ -128,7 +129,7 @@ const placeOrder = async ()=>{
                     // console.log("RazorPayOrderDetails : ", data.razorpayOrder);
 
 
-                    handleRazorpay(data.razorpayOrder);
+                    handleRazorpay(data.razorpayOrder, setCartData);
 
                 }
             }

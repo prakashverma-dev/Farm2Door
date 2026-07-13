@@ -14,9 +14,9 @@ export const updateCart = async (req, res)=>{
 
         const updatedUser = await User.findByIdAndUpdate(userId, {cartItems : cartItems}, {new : true} );
 
-        if(!updatedUser){
-            res.status(404).json({message : "User not found", success : false});
-        }
+        // if(!updatedUser){
+        //     res.status(404).json({message : "User not found", success : false});
+        // }
 
         res.status(200).json({updatedUser, message : "Cart Updated Successfully" , success : true});
           
