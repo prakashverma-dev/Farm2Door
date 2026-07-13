@@ -52,7 +52,7 @@ const AppContextProvider = ({children})=>{
                     
                 } catch (error) {
 
-                       setProducts(dummyProducts)
+                   setProducts(dummyProducts)
                    
                    if (error.response) {
                         // Backend responded with an error status (400, 401, 500...)
