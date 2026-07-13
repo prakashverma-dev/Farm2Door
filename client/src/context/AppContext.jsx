@@ -78,6 +78,7 @@ const AppContextProvider = ({children})=>{
                 
         },[])
 
+
         // Actually we sending/creating the updated Cart Item from frontend to respective user database -
         const cartItemUpdate = async ()=>{
                         try {
@@ -256,7 +257,7 @@ const AppContextProvider = ({children})=>{
         }
 
 
-        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo};
+        const value = {navigate, user, setUser, isSeller, setIsSeller, showUserLogin, setShowUserLogin, products, setProducts, cartItems, setCartItems, addToCart, updateCartItem, cartCount, totalCartAmount, removeFromCart, searchQuery, setSearchQuery, axios, fetchProductsData, sellerInfo, cartItemUpdate};
 
         return (
                 <AppContext.Provider value={value}>

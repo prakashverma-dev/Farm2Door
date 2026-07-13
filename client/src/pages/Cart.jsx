@@ -89,7 +89,7 @@ useEffect(()=>{
 const placeOrder = async ()=>{
         try {
             if(!selectedAddress){
-                toast.error("Please Select an Address!")
+               return toast.error("Please Select an Address!")
             }
 
             // TO Place COD Order Only -
